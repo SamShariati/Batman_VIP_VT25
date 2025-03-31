@@ -1,0 +1,54 @@
+{
+    "name": "Bat_Input",
+    "maps": [
+        {
+            "name": "Bat_Flying",
+            "id": "872d595f-99e6-42bc-83f2-3e211706f6fb",
+            "actions": [
+                {
+                    "name": "Fly",
+                    "type": "Value",
+                    "id": "ae627f1a-2351-4b96-aa1b-b0d091e406b6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Camera",
+                    "type": "Value",
+                    "id": "c01001aa-82bb-4f27-b83a-edd4480d3ce7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9c2c19ac-ee71-471a-9554-88edb4d59c2d",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76f61df5-447e-4e4f-9a0b-6ee34406977a",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
