@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         lookAction.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
         lookAction.canceled += ctx => lookInput = Vector2.zero;
         jumpAction.performed += OnJump;
+        //jumpAction.started += OnJump;
     }
 
     private void OnDisable()

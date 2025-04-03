@@ -81,7 +81,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         float sampleRate = AudioSettings.outputSampleRate;
 
         // Threshold for minimum amplitude to consider for pitch detection
-        float amplitudeThreshold = 0.01f; // Adjust as necessary
+        float amplitudeThreshold = 0.01f; // Adjust as necessary --- expose this in snspector for tweaks??
 
         for (int i = 1; i < complexData.Length / 2; i++)
         {
@@ -104,6 +104,8 @@ public class AudioLoudnessDetection : MonoBehaviour
         {
             dominantFrequency = maxIndex * sampleRate / sampleWindow;
 
+
+            //maybe clamp instead??
             // Check if the detected frequency is within a reasonable range (e.g., 20 Hz - 3000 Hz)
             if (dominantFrequency < 20 || dominantFrequency > 3000)
             {
@@ -112,7 +114,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         }
 
         // Log and return the detected pitch
-        Debug.Log("Detected Pitch: " + dominantFrequency + " Hz");
+        //Debug.Log("Detected Pitch: " + dominantFrequency + " Hz");
         return dominantFrequency;
     }
 

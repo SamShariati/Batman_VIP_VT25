@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e9e18d601971f45bf4d6587ec217f3, type: 3}
+  m_Name: MicrophoneData
+  m_EditorClassIdentifier: 
+  microphone: "Mikrofon p\xE5 headset (HyperX 7.1 Audio)"
+  avalibleMicrophones:
+  - "Mikrofon p\xE5 headset (HyperX 7.1 Audio)"
+  - VoiceMeeter Output (VB-Audio VoiceMeeter VAIO)
+  - CABLE Output (VB-Audio Virtual Cable)

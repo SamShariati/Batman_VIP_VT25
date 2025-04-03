@@ -31,12 +31,13 @@ public class EcholocationController : MonoBehaviour
         float loudness = _audioDetector.GetLoudnessFromMicrophone() * loudnessSensitivity;
 
         // Trigger the pulse when loudness exceeds the threshold
-        if (loudness > loudnessThreshold && !pulseTriggered && Input.GetKey(KeyCode.V))
+        if ((loudness > loudnessThreshold && !pulseTriggered && Input.GetKey(KeyCode.V)) || (!pulseTriggered && Input.GetKeyDown(KeyCode.P)))
         {
             pulseDistance = 0.0f; // Reset pulse distance
             pulseTriggered = true; // Prevent retriggering immediately
             _echolocationTimer = _echolocationCooldown;
             _maxDistance = loudness * 20;
+            _maxDistance = 20;
             Debug.Log("Pulse triggered by sound!");
         }
      
