@@ -21,7 +21,7 @@ public class Echolocator : MonoBehaviour
     {
         system = GetComponent<ParticleSystem>();
 
-        Debug.Assert(audioLoudnessDetection, "Echolocator - Assign lodness system in inspector!!");
+        Debug.Assert(audioLoudnessDetection, "Echolocator - Assign loudness system in inspector!!");
     }
 
     // Update is called once per frame
@@ -38,6 +38,7 @@ public class Echolocator : MonoBehaviour
             pulseTime = Time.time;
             float pitch = audioLoudnessDetection.GetPitchFromMicrophone();
 
+            //remap!!
             pulseDelay = Mathf.Lerp(minPulseDelay, maxPulseDelay, Mathf.InverseLerp(400, 20, pitch)); //expose min and max pitch in inspector
 
             //pulseDelay = Mathf.Clamp(delay, minPulseDelay, 1);

@@ -105,12 +105,12 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _IlluminationRadius: 0
-    - _MaxDistance: 0
+    - _MaxDistance: 20
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Parallax: 0.005
-    - _PulseDistance: 500013.56
+    - _PulseDistance: 73.136444
     - _PulseWidth: 6
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -124,7 +124,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.2264151, g: 0.22086152, b: 0.22086152, a: 1}
-    - _CameraPosition: {r: -0.07925701, g: 1.8523831, b: -10.015582, a: 0}
+    - _CameraPosition: {r: -1.2704841, g: 1.8865182, b: -13.397233, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ConstantLightCameraPosition: {r: 0.7110277, g: 0.963, b: -3.9520037, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e9e18d601971f45bf4d6587ec217f3, type: 3}
   m_Name: MicrophoneData
   m_EditorClassIdentifier: 
-  microphone: "Mikrofon p\xE5 headset (HyperX 7.1 Audio)"
+  sampleWindow: 2048
+  micBoost: 300
+  threshold: 0.1
+  microphone: CABLE Output (VB-Audio Virtual Cable)
   avalibleMicrophones:
   - "Mikrofon p\xE5 headset (HyperX 7.1 Audio)"
   - VoiceMeeter Output (VB-Audio VoiceMeeter VAIO)
