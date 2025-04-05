@@ -10,6 +10,9 @@ public class FrequencyVisualizer : MonoBehaviour
     
     List<RawImage> bars;
     AudioClip microphoneAudioClip;
+    public float width = 10;
+    public float boost = 10;
+    //public int micFrequency = 1000;
 
     void Start()
     {
@@ -21,18 +24,25 @@ public class FrequencyVisualizer : MonoBehaviour
             return;
         }
         bars = new();
-        for (int i = 0; i < microphoneData.sampleWindow/2; i++)
+        for (int i = 0; i < microphoneData.sampleWindow / 2 ; i++)
         {
             var bar = Instantiate(imageTemplate, transform);
             bar.gameObject.SetActive(true);
             bars.Add(bar);
+            float freq = i * microphoneData.sampleRate / microphoneData.sampleWindow;
+            //Debug.Log("Bin_" + i + " = " + freq + "Hz");
         }   
+
+
+
+
         MicrophoneToAudioClip();
     }
 
     public void MicrophoneToAudioClip()
     {
-        microphoneAudioClip = Microphone.Start(microphoneData.microphone, true, 20, AudioSettings.outputSampleRate);
+        microphoneAudioClip = Microphone.Start(microphoneData.microphone, true, 20, microphoneData.sampleRate);
+        Debug.Log("Microphone frequency = " + microphoneAudioClip.frequency);
     }
 
     // Update is called once per frame
@@ -62,15 +72,19 @@ public class FrequencyVisualizer : MonoBehaviour
         FFT.FFTCompute(complexData);
 
         // Calculate the dominant frequency from FFT result
-        float sampleRate = AudioSettings.outputSampleRate; //for maybe 
+        //float sampleRate = AudioSettings.outputSampleRate; //for maybe 
 
 
 
         for (int i = 1; i <= complexData.Length / 2; i++)
         {
-            float amplitude = (float)complexData[i].Magnitude;
+            float amplitude = (float)complexData[i].Magnitude * boost;
 
-            bars[i - 1].rectTransform.sizeDelta = new UnityEngine.Vector2(10, amplitude);
+            bars[i-1].rectTransform.sizeDelta = new UnityEngine.Vector2(width, amplitude);
+            if(i-1 == 0)
+            {
+                //Debug.Log("Amplitude? " + amplitude);
+            }
             //bars[i - 1].
         }
     }

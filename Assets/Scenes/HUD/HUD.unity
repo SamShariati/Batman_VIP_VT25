@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 726140576}
   - component: {fileID: 726140575}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: FrequencyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,6 +250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   microphoneData: {fileID: 11400000, guid: 64816bfd072c04b4e8149facae0f8aea, type: 2}
   imageTemplate: {fileID: 1315562360}
+  width: 3.14
+  boost: 100
 --- !u!114 &726140576
 MonoBehaviour:
   m_ObjectHideFlags: 0

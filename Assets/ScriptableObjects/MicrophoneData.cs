@@ -3,8 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MicrophoneData", menuName = "ScriptableObjects/MicrophoneData", order = 1)]
 public class MicrophoneData : ScriptableObject
 {
+    [Tooltip("Frequency of the microphone")]
+    public int sampleRate = 2024;
     [Tooltip("Amount of samples for frequency analysis")]
-    public int sampleWindow = 2048;
+    public int sampleWindow = 512;
     [Tooltip("How much to boost the sounds, they are tiny tiny numbers otherwise...")]
     public float micBoost = 300;
     [Tooltip("Normalized - cuts off sound below this")]

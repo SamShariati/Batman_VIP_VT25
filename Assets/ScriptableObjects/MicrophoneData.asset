@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e9e18d601971f45bf4d6587ec217f3, type: 3}
   m_Name: MicrophoneData
   m_EditorClassIdentifier: 
-  sampleWindow: 2048
+  sampleRate: 8048
+  sampleWindow: 256
   micBoost: 300
   threshold: 0.1
   microphone: CABLE Output (VB-Audio Virtual Cable)
