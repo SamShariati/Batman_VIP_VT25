@@ -12,8 +12,11 @@ public class FrequencyVisualizer : MonoBehaviour
     AudioClip microphoneAudioClip;
     public float width = 10;
     public float boost = 10;
+    [Range(0,1)]
+    public float smoothing = .6f;
     //public int micFrequency = 1000;
-
+    float[] lastFrameData;
+    public AnimationCurve filter;
     void Start()
     {
 
@@ -33,8 +36,8 @@ public class FrequencyVisualizer : MonoBehaviour
             //Debug.Log("Bin_" + i + " = " + freq + "Hz");
         }   
 
-
-
+        width = GetComponent<RectTransform>().sizeDelta.x / bars.Count; //auto fit tinto parent panel
+        lastFrameData = new float[bars.Count];
 
         MicrophoneToAudioClip();
     }
@@ -80,12 +83,17 @@ public class FrequencyVisualizer : MonoBehaviour
         {
             float amplitude = (float)complexData[i].Magnitude * boost;
 
-            bars[i-1].rectTransform.sizeDelta = new UnityEngine.Vector2(width, amplitude);
-            if(i-1 == 0)
-            {
-                //Debug.Log("Amplitude? " + amplitude);
-            }
-            //bars[i - 1].
+            float value = Mathf.Lerp(amplitude, lastFrameData[i - 1], smoothing);
+
+            value = filter.Evaluate(Mathf.InverseLerp(1, complexData.Length / 2, i)) * value;
+
+            value = Mathf.Clamp(value, 1.0f, 100); //add max like size of container
+
+            bars[i-1].rectTransform.sizeDelta = new UnityEngine.Vector2(width, value);
+
+            lastFrameData[i - 1] = value;
+
         }
+
     }
 }

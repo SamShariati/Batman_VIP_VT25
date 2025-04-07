@@ -24,6 +24,12 @@ public class MicrophoneData : ScriptableObject
     public void ValidateMic()
     {
         avalibleMicrophones = Microphone.devices;
+        if(avalibleMicrophones == null || avalibleMicrophones.Length == 0)
+        {
+            return;
+        }
+
+
         bool micExists = false;
         for (int i = 0; i < avalibleMicrophones.Length; i++)
         {
