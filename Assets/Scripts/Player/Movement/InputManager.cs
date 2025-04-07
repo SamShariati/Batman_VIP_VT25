@@ -1,21 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
 
-    public static InputManager Instance{ get { return _instance; } }
+    public static InputManager Instance { get { return _instance; } }
 
     private PlayerControls playerControls;
 
     private void Awake()
     {
-        if (_instance != null & _instance != this)
+        if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-
         }
         else
         {
@@ -24,6 +22,7 @@ public class InputManager : MonoBehaviour
 
         playerControls = new PlayerControls();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnEnable()
@@ -46,8 +45,13 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Look.ReadValue<Vector2>();
     }
 
-    public bool PlayerJumpedThisFrame()
+    public bool IsSprinting()
     {
-        return playerControls.Player.Jump.triggered;
+        return playerControls.Player.Sprint.ReadValue<float>() > 0.1f;
+    }
+
+    public bool CrouchTriggered()
+    {
+        return playerControls.Player.Crouch.triggered;
     }
 }
