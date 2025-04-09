@@ -119,6 +119,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &302767374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302767376}
+  - component: {fileID: 302767375}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &302767375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302767374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd89511ed4d08b040a28cd843b71041d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSound: {fileID: 0}
+  playerMovementAudioSource: {fileID: 0}
+  caveMusic: {fileID: 0}
+  spiderSound: {fileID: 0}
+  torchSound: {fileID: 0}
+  quakeDoorSound: {fileID: 0}
+  quakeAudioSource: {fileID: 0}
+--- !u!4 &302767376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302767374}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &326499652
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,7 +1044,6 @@ GameObject:
   - component: {fileID: 867529287}
   - component: {fileID: 867529286}
   - component: {fileID: 867529285}
-  - component: {fileID: 867529288}
   - component: {fileID: 867529289}
   - component: {fileID: 867529290}
   m_Layer: 0
@@ -1024,17 +1074,13 @@ MonoBehaviour:
   standHeight: 1.8
   crouchTransitionSpeed: 8
   crouchCameraOffset: -0.5
-  maxStamina: 100
-  staminaDepletionRate: 25
-  staminaRecoveryRate: 18
-  staminaRecoveryDelay: 1.5
-  minStaminaToSprint: 15
   cameraRotateSpeed: 3
-  headBobSpeed: 14
-  headBobAmount: 0.05
   footstepIntervalWalk: 0.5
   footstepIntervalSprint: 0.3
   footstepIntervalCrouch: 0.7
+  soundRadiusWalk: 5
+  soundRadiusSprint: 12
+  soundRadiusCrouch: 2
 --- !u!143 &867529286
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1077,18 +1123,6 @@ Transform:
   - {fileID: 918856355}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &867529288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867529284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58cff5b97bdc93b48a46a0816fd8e672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &867529289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1819,3 +1853,4 @@ SceneRoots:
   - {fileID: 440013110}
   - {fileID: 1828194062}
   - {fileID: 539284343}
+  - {fileID: 302767376}

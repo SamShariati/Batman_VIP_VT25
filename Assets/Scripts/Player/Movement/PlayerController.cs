@@ -1,3 +1,6 @@
+using UnityEngine.InputSystem;
+using UnityEngine;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,8 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float walkSpeed = 3.0f;
-    [SerializeField] private float sprintSpeed = 5.5f;
-    [SerializeField] private float crouchSpeed = 1.8f;
+    [SerializeField] private float sprintSpeed = 6.0f;
+    [SerializeField] private float crouchSpeed = 1.5f;
     [SerializeField] private float acceleration = 10.0f;
     [SerializeField] private float gravityValue = -9.81f;
 
@@ -17,22 +20,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float crouchTransitionSpeed = 8f;
     [SerializeField] private float crouchCameraOffset = -0.5f;
 
-    [Header("Stamina Settings")]
-    [SerializeField] private float maxStamina = 100f;
-    [SerializeField] private float staminaDepletionRate = 25f;
-    [SerializeField] private float staminaRecoveryRate = 18f;
-    [SerializeField] private float staminaRecoveryDelay = 1.5f;
-    [SerializeField] private float minStaminaToSprint = 15f;
-
     [Header("Camera")]
     [SerializeField] private float cameraRotateSpeed = 3f;
-    [SerializeField] private float headBobSpeed = 14f;
-    [SerializeField] private float headBobAmount = 0.05f;
 
     [Header("Audio")]
     [SerializeField] private float footstepIntervalWalk = 0.5f;
     [SerializeField] private float footstepIntervalSprint = 0.3f;
     [SerializeField] private float footstepIntervalCrouch = 0.7f;
+    [SerializeField] private float soundRadiusWalk = 5f;
+    [SerializeField] private float soundRadiusSprint = 12f;
+    [SerializeField] private float soundRadiusCrouch = 2f;
 
     private Camera mainCamera;
     private CharacterController controller;
@@ -40,15 +37,10 @@ public class PlayerController : MonoBehaviour
     private float originalCameraY;
     private float currentSpeed;
     private float targetHeight;
-    private float currentStamina;
-    private float timeSinceLastSprint;
     private float footstepTimer;
-    private float headBobTimer;
-    private Vector3 headBobOriginalPosition;
 
     private bool isCrouching;
     private bool isSprinting;
-    private bool isExhausted;
     private bool groundedPlayer;
 
     private Vector3 playerVelocity;
@@ -67,7 +59,6 @@ public class PlayerController : MonoBehaviour
     {
         mainCamera = Camera.main;
         originalCameraY = mainCamera.transform.localPosition.y;
-        headBobOriginalPosition = mainCamera.transform.localPosition;
         playerInputActions = GetComponent<PlayerInput>().actions;
 
         moveAction = playerInputActions.FindAction("Movement");
@@ -82,7 +73,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         currentSpeed = walkSpeed;
         targetHeight = standHeight;
-        currentStamina = maxStamina;
     }
 
     private void OnEnable()
@@ -116,9 +106,13 @@ public class PlayerController : MonoBehaviour
         UpdateMovement();
         RotateCamera();
         UpdateCrouch();
-        UpdateStamina();
-        HandleHeadBob();
         HandleFootsteps();
+
+        // Reset movement noise level when not moving
+        if (velocity.magnitude < 0.1f || !groundedPlayer)
+        {
+            MovementNoiseLevel = 0f;
+        }
     }
 
     private void HandleGravity()
@@ -148,17 +142,13 @@ public class PlayerController : MonoBehaviour
         {
             currentSpeed = crouchSpeed;
         }
-        else if (isSprinting && movementInput.y > 0 && !isExhausted && currentStamina > minStaminaToSprint)
+        else if (isSprinting && movementInput.y > 0)
         {
             currentSpeed = sprintSpeed;
-            currentStamina -= staminaDepletionRate * Time.deltaTime;
-            timeSinceLastSprint = 0f;
         }
         else
         {
             currentSpeed = walkSpeed;
-            isSprinting = false;
-            timeSinceLastSprint += Time.deltaTime;
         }
     }
 
@@ -201,53 +191,6 @@ public class PlayerController : MonoBehaviour
         mainCamera.transform.localPosition = cameraPos;
     }
 
-    private void UpdateStamina()
-    {
-        if (!isSprinting && timeSinceLastSprint > staminaRecoveryDelay)
-        {
-            currentStamina += staminaRecoveryRate * Time.deltaTime;
-            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-        }
-
-        isExhausted = currentStamina <= 0;
-    }
-
-    private void HandleHeadBob()
-    {
-        if (velocity.magnitude > 0.1f && groundedPlayer)
-        {
-            // Calculate head bob based on movement speed
-            float bobSpeed = isSprinting ? headBobSpeed * 1.5f : isCrouching ? headBobSpeed * 0.7f : headBobSpeed;
-            float bobAmount = isSprinting ? headBobAmount * 1.3f : isCrouching ? headBobAmount * 0.6f : headBobAmount;
-
-            headBobTimer += Time.deltaTime * bobSpeed;
-            Vector3 newPosition = headBobOriginalPosition;
-            newPosition.y += Mathf.Sin(headBobTimer) * bobAmount;
-            newPosition.x += Mathf.Cos(headBobTimer * 0.5f) * bobAmount * 0.5f;
-
-            if (isCrouching) newPosition.y += crouchCameraOffset;
-
-            mainCamera.transform.localPosition = Vector3.Lerp(
-                mainCamera.transform.localPosition,
-                newPosition,
-                Time.deltaTime * 10f
-            );
-        }
-        else
-        {
-            // Return to original position
-            Vector3 targetPosition = headBobOriginalPosition;
-            if (isCrouching) targetPosition.y += crouchCameraOffset;
-
-            mainCamera.transform.localPosition = Vector3.Lerp(
-                mainCamera.transform.localPosition,
-                targetPosition,
-                Time.deltaTime * 10f
-            );
-            headBobTimer = 0;
-        }
-    }
-
     private void HandleFootsteps()
     {
         if (velocity.magnitude > 0.1f && groundedPlayer)
@@ -272,23 +215,34 @@ public class PlayerController : MonoBehaviour
 
     private void PlayFootstepSound()
     {
+        float currentNoiseLevel = 0f;
+
         if (isSprinting)
         {
-            //AudioManager.instance.PlayRunningSound();
+            AudioManager.instance.PlayWalkingSound();
+            currentNoiseLevel = soundRadiusSprint;
         }
         else if (isCrouching)
         {
-            //AudioManager.instance.PlayCrouchingSound();
+            AudioManager.instance.PlayWalkingSound();
+            currentNoiseLevel = soundRadiusCrouch;
         }
         else
         {
             AudioManager.instance.PlayWalkingSound();
+            currentNoiseLevel = soundRadiusWalk;
         }
+
+        // Update the current movement noise level
+        MovementNoiseLevel = currentNoiseLevel;
     }
+
+    // Public property that enemies can check to determine how loud the player's movement is
+    public float MovementNoiseLevel { get; private set; } = 0f;
 
     private void OnStartSprint(InputAction.CallbackContext context)
     {
-        if (!isCrouching && currentStamina > minStaminaToSprint && movementInput.y > 0)
+        if (!isCrouching)
         {
             isSprinting = true;
         }
