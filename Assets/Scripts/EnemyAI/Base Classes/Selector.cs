@@ -1,32 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
-public class Selector : Node
+public class Selector : BTNode
 {
-    protected List<Node> nodes = new List<Node>();
+    protected List<BTNode> nodes = new List<BTNode>();
 
-    public Selector(List<Node> nodes)
+    public Selector(List<BTNode> nodes)
     {
         this.nodes = nodes;
     }
-    public override NodeState Evaluate()
+
+    public override NodeState Evaluate(AIManager agent)
     {
-        foreach (var node in nodes)
+
+        foreach (BTNode node in nodes)
         {
-            switch (node.Evaluate())
+            switch (node.Evaluate(agent))
             {
                 case NodeState.RUNNING:
                     _nodeState = NodeState.RUNNING;
                     return _nodeState;
+
                 case NodeState.SUCCESS:
                     _nodeState = NodeState.SUCCESS;
                     return _nodeState;
+
                 case NodeState.FAILURE:
                     break;
+
                 default:
                     break;
             }
+
         }
         _nodeState = NodeState.FAILURE;
         return _nodeState;

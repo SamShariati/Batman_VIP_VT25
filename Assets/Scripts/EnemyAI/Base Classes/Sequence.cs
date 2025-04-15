@@ -2,34 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sequence : Node
+public class Sequence : BTNode
 {
-    protected List<Node> nodes = new List<Node>();
+    protected List<BTNode> nodes = new List<BTNode>();
 
-    public Sequence(List<Node> nodes)
+    public Sequence(List<BTNode> nodes)
     {
         this.nodes = nodes;
     }
-    public override NodeState Evaluate()
+
+    public override NodeState Evaluate(AIManager agent)
     {
-        bool isAnyNodeRunning = false;
-        foreach (var node in nodes)
+
+        foreach (BTNode node in nodes)
         {
-            switch (node.Evaluate())
+            switch (node.Evaluate(agent))
             {
                 case NodeState.RUNNING:
-                    isAnyNodeRunning = true;
-                    break;
+                    _nodeState = NodeState.RUNNING;
+                    return _nodeState;
+
                 case NodeState.SUCCESS:
                     break;
+
                 case NodeState.FAILURE:
                     _nodeState = NodeState.FAILURE;
                     return _nodeState;
+
                 default:
                     break;
             }
+
         }
-        _nodeState = isAnyNodeRunning ? NodeState.RUNNING : NodeState.SUCCESS;
+        _nodeState = NodeState.SUCCESS;
         return _nodeState;
     }
 }
