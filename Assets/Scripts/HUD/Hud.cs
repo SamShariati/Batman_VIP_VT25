@@ -6,6 +6,7 @@ public class Hud : MonoBehaviour
 {
 
     GameObject playerObject;
+    public event Action<GameObject> OnPlayerObject;
 
     void Start()
     {
@@ -26,13 +27,15 @@ public class Hud : MonoBehaviour
     {
         if (!obj)
         {
-            gameObject.SetActive(false); 
+            gameObject.SetActive(false);
+            OnPlayerObject(null);
             return;
         }
         gameObject.SetActive(true);
         if (obj != playerObject)
         {
             playerObject = obj;
+            OnPlayerObject(playerObject);
         }
     }
 

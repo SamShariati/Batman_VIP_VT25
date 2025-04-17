@@ -19,9 +19,11 @@ public class SoundBubbleSpawner : MonoBehaviour
     public SoundBubble prefab;
     ObjectPool<SoundBubble> pool;
     public float soundSpeed = 12; //could be nicer but all sounds grow at the same speed...
-    //public float emitDelay = .3f;
-    //private float emitTime;
-    
+                                  //public float emitDelay = .3f;
+                                  //private float emitTime;
+
+    Transform bubbleParent;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,13 +33,13 @@ public class SoundBubbleSpawner : MonoBehaviour
             soundSpeed = echolocator.soundSpeed;
             echolocator.OnEmit += EmitBubble;
         }
-        
+        bubbleParent = new GameObject("SoundBubbleParent").transform;
     }
 
     private SoundBubble OnCreateFunc()
     {
         
-        var bubble = Instantiate(prefab);
+        var bubble = Instantiate(prefab, bubbleParent);
         bubble.Init(this); 
         return bubble;
     }
