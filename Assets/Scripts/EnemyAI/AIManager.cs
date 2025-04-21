@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
+    int iM;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
