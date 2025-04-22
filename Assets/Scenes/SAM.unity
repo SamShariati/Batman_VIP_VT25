@@ -1301,9 +1301,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.9
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 720
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1324,6 +1324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b0ffdbdc339264d9c2eac564e1a786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomPointsPrefab: {fileID: 940576141}
+  patrolPointsPrefab: {fileID: 929557940}
+  runSpeed: 30
   navigation: {fileID: 0}
   test: {fileID: 0}
   animator: {fileID: 0}
@@ -1333,8 +1336,10 @@ MonoBehaviour:
   R3patrolPoints: []
   R4patrolPoints: []
   R5patrolPoints: []
+  testarray: []
   walkToNewRoomAllowed: 0
-  walkingToNewRoom: 0
+  currentlyWalkingToRoom: 0
+  chosenRoom: {fileID: 0}
 --- !u!1 &234039443
 GameObject:
   m_ObjectHideFlags: 0
