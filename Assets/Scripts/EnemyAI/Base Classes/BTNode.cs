@@ -10,7 +10,7 @@ public abstract class BTNode
 
     public NodeState nodeState { get { return _nodeState; } }
 
-    public abstract NodeState Evaluate(AIManager agent);
+    public abstract NodeState Evaluate(SpiderBTManager agent);
 }
 
 public enum NodeState

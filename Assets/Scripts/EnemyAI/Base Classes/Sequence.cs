@@ -11,7 +11,7 @@ public class Sequence : BTNode
         this.nodes = nodes;
     }
 
-    public override NodeState Evaluate(AIManager agent)
+    public override NodeState Evaluate(SpiderBTManager agent)
     {
 
         foreach (BTNode node in nodes)
