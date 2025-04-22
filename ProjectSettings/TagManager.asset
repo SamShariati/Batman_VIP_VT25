@@ -8,7 +8,10 @@ TagManager:
   - canPickUp
   - BatCamera
   - Monster
-  - Bat
+  - Agent
+  - Wall
+  - Floor
+  - Enemy AI
   layers:
   - Default
   - TransparentFX
@@ -16,9 +19,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Wall
+  - Floor
+  - Enemy AI
   - 
   - 
   - HoldLayer

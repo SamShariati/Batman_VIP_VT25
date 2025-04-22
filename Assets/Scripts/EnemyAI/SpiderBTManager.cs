@@ -1,16 +1,18 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpiderBTManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public NavMeshAgent navigation;
+    public Transform test;
+    void Awake()
     {
-        
+        navigation = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        navigation.destination = test.position;
     }
 }
