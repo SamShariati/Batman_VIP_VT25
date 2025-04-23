@@ -2,42 +2,159 @@ using UnityEngine;
 
 public class PatrolRoom : BTNode
 {
+    private bool runOnce = false;
+    private Transform[] patrolPoints;
+    private bool chooseNewPatrolPoint = true;
+    private Transform chosenPatrolPoint;
+    private Transform previousPatrolPoint;
+    private bool loopActivated = true;
+    private bool activateNewPatrolPoint = true;
+    private float distance;
+
+    private float totalIdleTime = 7f;
+    private float currentIdleTime = 0f;
+
+    private bool startIdleTime = true;
+    private int nrTimesSwappedPoint = 0;
+
+
 
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
-        throw new System.NotImplementedException();
+        agent.currentlySearchingRoom = true;
+        agent.navigation.speed = agent.walkSpeed;
+
+        if (!runOnce)
+        {
+            GetCorrectPointList(agent);
+            runOnce = true;
+        }
+
+        if (activateNewPatrolPoint)
+        {
+            loopActivated = true;
+            activateNewPatrolPoint = false;
+            GetNewPatrolPoint(agent);
+        }
+
+        if (startIdleTime)
+        {
+            ActivateTimer();
+        }
+
+        distance = Vector3.Distance(agent.transform.position, chosenPatrolPoint.position);
+
+        if(distance > 6f)
+        {
+            SetAnimation(agent, "Walk");
+            agent.navigation.SetDestination(chosenPatrolPoint.position);
+            agent.navigation.isStopped = false;
+
+        }
+        else
+        {
+            SetAnimation(agent, "Idle");
+            startIdleTime = true;
+            agent.navigation.isStopped = true;
+        }
+
+        if (nrTimesSwappedPoint == 3)
+        {
+            nrTimesSwappedPoint = 0;
+            runOnce = false;
+            agent.walkToNewRoomAllowed = true;
+            agent.currentlySearchingRoom = false;
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.RUNNING;
+        }
+
     }
 
 
 
-    private Transform[] chosenPoints;
+
+    private void GetNewPatrolPoint(SpiderBTManager agent)
+    {
+
+        while (loopActivated)
+        {
+            int range = patrolPoints.Length;
+            int randNr = Random.Range(0, range);
+            chosenPatrolPoint = patrolPoints[randNr];
+
+            if (chosenPatrolPoint != previousPatrolPoint)
+            {
+                previousPatrolPoint = chosenPatrolPoint;
+                loopActivated = false;
+            }
+
+        }
+    }
+
+    private void ActivateTimer()
+    {
+        currentIdleTime += Time.deltaTime;
+
+        if (currentIdleTime > totalIdleTime)
+        {
+            startIdleTime = false;
+            activateNewPatrolPoint = true;
+            currentIdleTime = 0;
+            nrTimesSwappedPoint++;
+        }
+    }
+
+
     private void GetCorrectPointList(SpiderBTManager agent)
     {
         if (agent.chosenRoom.name == "Room1")
         {
-            chosenPoints = agent.R1patrolPoints.ToArray();
+            patrolPoints = agent.R1patrolPoints.ToArray();
         }
 
         else if (agent.chosenRoom.name == "Room2")
         {
-            chosenPoints = agent.R2patrolPoints.ToArray();
+            patrolPoints = agent.R2patrolPoints.ToArray();
         }
 
         else if (agent.chosenRoom.name == "Room3")
         {
-            chosenPoints = agent.R3patrolPoints.ToArray();
+            patrolPoints = agent.R3patrolPoints.ToArray();
         }
 
         else if (agent.chosenRoom.name == "Room4")
         {
-            chosenPoints = agent.R4patrolPoints.ToArray();
+            patrolPoints = agent.R4patrolPoints.ToArray();
         }
 
         else if (agent.chosenRoom.name == "Room5")
         {
-            chosenPoints = agent.R5patrolPoints.ToArray();
+            patrolPoints = agent.R5patrolPoints.ToArray();
         }
 
+    }
+
+    private void SetAnimation(SpiderBTManager agent, string type)
+    {
+
+        if (type == "Walk")
+        {
+            agent.animator.SetBool("Agent_Walk", true);
+            agent.animator.SetBool("Agent_Idle", false);
+        }
+        else if (type == "Idle")
+        {
+            agent.animator.SetBool("Agent_Walk", false);
+            agent.animator.SetBool("Agent_Idle", true);
+        }
+        agent.animator.SetBool("Agent_Run", false);
+        agent.animator.SetBool("Agent_Terrify", false);
+        agent.animator.SetBool("Agent_Sprint", false);
+        agent.animator.SetBool("Agent_Scared", false);
+        agent.animator.SetBool("Agent_Attack", false);
     }
 }

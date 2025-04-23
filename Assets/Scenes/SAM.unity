@@ -1327,6 +1327,7 @@ MonoBehaviour:
   roomPointsPrefab: {fileID: 940576141}
   patrolPointsPrefab: {fileID: 929557940}
   runSpeed: 30
+  walkSpeed: 15
   navigation: {fileID: 0}
   test: {fileID: 0}
   animator: {fileID: 0}
@@ -1340,6 +1341,8 @@ MonoBehaviour:
   walkToNewRoomAllowed: 0
   currentlyWalkingToRoom: 0
   chosenRoom: {fileID: 0}
+  startSearchingRoom: 1
+  currentlySearchingRoom: 0
 --- !u!1 &234039443
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class WalkToRoom : BTNode
         {
             agent.navigation.isStopped = true;
             agent.currentlyWalkingToRoom = false;
-            agent.walkToNewRoomAllowed = true;
+            agent.startSearchingRoom = true;
 
             return NodeState.SUCCESS;
 

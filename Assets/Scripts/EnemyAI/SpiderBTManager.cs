@@ -12,6 +12,7 @@ public class SpiderBTManager : MonoBehaviour
 
     //Stats
     public float runSpeed;
+    public float walkSpeed;
 
     public NavMeshAgent navigation;
     public Transform test;
@@ -32,6 +33,8 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public bool walkToNewRoomAllowed = true;
     [HideInInspector] public bool currentlyWalkingToRoom = false;
     public Transform chosenRoom;
+    public bool startSearchingRoom = true;
+    public bool currentlySearchingRoom = false;
 
 
     void Awake()
@@ -106,10 +109,13 @@ public class SpiderBTManager : MonoBehaviour
     {
         WalkToRoomConditions walkToRoomConditions = new WalkToRoomConditions();
         WalkToRoom walkToRoom = new WalkToRoom();
+        PatrolRoomConditions patrolRoomConditions = new PatrolRoomConditions();
+        PatrolRoom patrolRoom = new PatrolRoom();
 
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
+        Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
 
-        Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState });
+        Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
 
         rootNode = new Selector(new List<BTNode>() { patrolState });
     }

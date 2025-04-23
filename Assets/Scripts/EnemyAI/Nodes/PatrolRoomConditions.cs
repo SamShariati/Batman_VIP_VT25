@@ -1,16 +1,38 @@
 using UnityEngine;
 
-public class PatrolRoomConditions : MonoBehaviour
+public class PatrolRoomConditions : BTNode
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
-    void Update()
+
+    public override NodeState Evaluate( SpiderBTManager agent)
     {
-        
+
+
+        if (agent.startSearchingRoom)
+        {
+            agent.startSearchingRoom = false;
+            return NodeState.SUCCESS;
+        }
+        else if (agent.currentlySearchingRoom)
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        return NodeState.SUCCESS;
     }
 }
