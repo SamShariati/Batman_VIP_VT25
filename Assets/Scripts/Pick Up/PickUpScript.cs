@@ -23,7 +23,7 @@ public class PickUpScript : MonoBehaviour
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("HoldLayer");
-        pickUpCamera.enabled = false;
+        //pickUpCamera.enabled = false;
     }
 
     void Update()
@@ -38,7 +38,7 @@ public class PickUpScript : MonoBehaviour
                     if (hit.transform.gameObject.tag == "canPickUp")
                     {
                         PickUpObject(hit.transform.gameObject);
-                        pickUpCamera.enabled = true;
+                        //pickUpCamera.enabled = true;
                         mainCamera.cullingMask &= ~(1 << LayerNumber);
                     }
                 }
@@ -49,7 +49,7 @@ public class PickUpScript : MonoBehaviour
                 {
                     StopClipping();
                     DropObject();
-                    pickUpCamera.enabled = false;
+                    //pickUpCamera.enabled = false;
                     mainCamera.cullingMask |= (1 << LayerNumber);
                 }
             }
@@ -63,7 +63,7 @@ public class PickUpScript : MonoBehaviour
             {
                 StopClipping();
                 ThrowObject();
-                pickUpCamera.enabled = false;
+                //pickUpCamera.enabled = false;
                 mainCamera.cullingMask |= (1 << LayerNumber);
             }
         }

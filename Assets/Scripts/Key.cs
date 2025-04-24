@@ -17,6 +17,7 @@ public class Key : MonoBehaviour, IInteractable
             if (inventory.PickUpKey(keyColour))
             {
                 gameObject.SetActive(false);
+                inventory.PickUpAnim();
             }
             else
             {

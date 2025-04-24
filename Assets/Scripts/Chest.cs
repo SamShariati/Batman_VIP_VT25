@@ -40,6 +40,7 @@ public class Chest : MonoBehaviour, IInteractable
             if (!open && inventory.HasKey(requiredKey))
             {
                 OpenChest();
+                inventory.UseKey();
             }
             else 
             {

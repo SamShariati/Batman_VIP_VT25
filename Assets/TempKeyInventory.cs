@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class TempKeyInventory : MonoBehaviour
 {
+    
+    //this is perhaps too much responsibility breaking SRP
+    public Animator animator;
+
 
     HashSet<string> keys = new();
 
@@ -10,6 +14,19 @@ public class TempKeyInventory : MonoBehaviour
     {
         
     }
+
+    public void UseKey()
+    {
+        animator.SetTrigger("UseKey");
+    }
+
+    public void PickUpAnim()
+    {
+        animator.SetBool("HasKey", true);
+        animator.SetTrigger("PickUpKey");
+    }
+
+    
 
     public bool HasKey(string key)
     {
