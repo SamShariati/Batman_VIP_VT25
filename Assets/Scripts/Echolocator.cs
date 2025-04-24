@@ -120,7 +120,7 @@ public class Echolocator : MonoBehaviour
             //pulseDelay = Mathf.Clamp(delay, minPulseDelay, 1);
 
             //Debug.Log("pitch = " + pitch + " pulseDelay = " + pulseDelay);
-            PulseOnce(Loudness);
+            PulseOnce(LoudnessNormalized);
         }
 
         if (Input.GetKey(KeyCode.Q))
@@ -218,6 +218,9 @@ public class Echolocator : MonoBehaviour
     public void PulseOnce(float loudness)
     {
         float range = maxRange * loudness;
+
+
+
         if (useParticleSystem) { 
             var emitParams = new ParticleSystem.EmitParams();
             float time = range / soundSpeed; // v = s/t  physics!

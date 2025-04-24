@@ -33,7 +33,7 @@ public class Hearing : MonoBehaviour, ISoundListener
 
     public void HearSound(Transform soundSource, Vector3 soundOrigin)
     {
-      //  Debug.Log("Hearing a sound!");
+        //  Debug.Log("Hearing a sound!");
         StopAllCoroutines();
         StartCoroutine(DoEffect());
     }

@@ -17,4 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: e075e676a7f38fd4788a60fd71275c9b
+  - enabled: 1
+    path: Assets/Scenes/HUD/HUD.unity
+    guid: efd56b9b5769e4847a45892c2345c46d
+  - enabled: 1
+    path: Assets/Scenes/PuzzleTest.unity
+    guid: 0c4d05c4579fbff44901ecd84efdca7f
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
