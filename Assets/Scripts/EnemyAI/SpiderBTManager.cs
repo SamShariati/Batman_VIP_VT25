@@ -18,15 +18,15 @@ public class SpiderBTManager : MonoBehaviour
     public Transform test;
     public Animator animator;
 
-    
-    public List<Transform> roomPoints;
-    public List<Transform> R1patrolPoints;
-    public List<Transform> R2patrolPoints;
-    public List<Transform> R3patrolPoints;
-    public List<Transform> R4patrolPoints;
-    public List<Transform> R5patrolPoints;
 
-    public Transform[] testarray;
+    [HideInInspector] public List<Transform> roomPoints;
+    [HideInInspector] public List<Transform> R1patrolPoints;
+    [HideInInspector] public List<Transform> R2patrolPoints;
+    [HideInInspector] public List<Transform> R3patrolPoints;
+    [HideInInspector] public List<Transform> R4patrolPoints;
+    [HideInInspector] public List<Transform> R5patrolPoints;
+
+    [HideInInspector] public Transform[] testarray;
 
     //PatrolState
 
