@@ -9,14 +9,16 @@ public class SpiderBTManager : MonoBehaviour
     private BTNode rootNode;
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
+    public Transform playerPrefab;
+    [HideInInspector] public SimpleMovement player;
 
     //Stats
     public float runSpeed;
     public float walkSpeed;
 
-    public NavMeshAgent navigation;
+    [HideInInspector] public NavMeshAgent navigation;
     public Transform test;
-    public Animator animator;
+    [HideInInspector] public Animator animator;
 
 
     [HideInInspector] public List<Transform> roomPoints;
@@ -32,9 +34,9 @@ public class SpiderBTManager : MonoBehaviour
 
     [HideInInspector] public bool walkToNewRoomAllowed = true;
     [HideInInspector] public bool currentlyWalkingToRoom = false;
-    public Transform chosenRoom;
-    public bool startSearchingRoom = true;
-    public bool currentlySearchingRoom = false;
+    [HideInInspector] public Transform chosenRoom;
+    [HideInInspector] public bool startSearchingRoom = true;
+    [HideInInspector] public bool currentlySearchingRoom = false;
 
 
     void Awake()
@@ -48,6 +50,8 @@ public class SpiderBTManager : MonoBehaviour
 
         chosenRoom = roomPoints[0];
         ConstructBT();
+
+        player = playerPrefab.GetComponent<SimpleMovement>();
 
     }
 

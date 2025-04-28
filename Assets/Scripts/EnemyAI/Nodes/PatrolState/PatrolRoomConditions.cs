@@ -23,16 +23,5 @@ public class PatrolRoomConditions : BTNode
             return NodeState.FAILURE;
         }
 
-
-
-
-
-
-
-
-
-
-
-        return NodeState.SUCCESS;
     }
 }

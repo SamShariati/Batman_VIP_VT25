@@ -6,7 +6,7 @@ public class SimpleMovement : MonoBehaviour
 {
     // Movement speed in units per second
     [SerializeField] private float moveSpeed = 5f;
-     public int soundIntensity;
+    public float soundIntensity;
     public bool currentlyMakingSound = false;
 
     private float currentTimer = 0;
