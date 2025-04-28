@@ -1,16 +1,45 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Android;
 
-public class InspectSoundConditions : MonoBehaviour
+public class InspectSoundConditions : BTNode
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private float distance;
+    private float hearingSensitivity = 80f;
+    private float hearingDistance;
+
+    public override NodeState Evaluate(SpiderBTManager agent)
     {
-        
+
+        if (CheckPlayerSound(agent) && !agent.alertStateActivated)
+        {
+            agent.alertStateActivated = true;
+
+            return NodeState.SUCCESS;
+        }
+        else if (agent.alertStateActivated)
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private bool CheckPlayerSound(SpiderBTManager agent)
     {
-        
+        distance = Vector3.Distance(agent.transform.position, agent.player.position);
+        hearingDistance = hearingSensitivity * agent.playerManager.soundIntensity;
+
+        if (agent.playerManager.currentlyMakingSound && distance < hearingDistance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -9,8 +9,8 @@ public class SpiderBTManager : MonoBehaviour
     private BTNode rootNode;
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
-    public Transform playerPrefab;
-    [HideInInspector] public SimpleMovement player;
+    public Transform player;
+    [HideInInspector] public SimpleMovement playerManager;
 
     //Stats
     public float runSpeed;
@@ -38,6 +38,10 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public bool startSearchingRoom = true;
     [HideInInspector] public bool currentlySearchingRoom = false;
 
+    //AlertState
+
+    [HideInInspector] public bool alertStateActivated = false;
+
 
     void Awake()
     {
@@ -51,7 +55,7 @@ public class SpiderBTManager : MonoBehaviour
         chosenRoom = roomPoints[0];
         ConstructBT();
 
-        player = playerPrefab.GetComponent<SimpleMovement>();
+        playerManager = player.GetComponent<SimpleMovement>();
 
     }
 

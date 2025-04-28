@@ -9886,6 +9886,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
         type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 648507003}
+    - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
+        type: 3}
       propertyPath: roomPointsPrefab
       value: 
       objectReference: {fileID: 940576141}

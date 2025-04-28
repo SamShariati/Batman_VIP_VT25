@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class TerrifyConditions : MonoBehaviour
+public class TerrifyConditions : BTNode
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public override NodeState Evaluate(SpiderBTManager agent)
     {
-        
+        throw new System.NotImplementedException();
     }
 }
