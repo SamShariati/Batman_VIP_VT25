@@ -10,7 +10,7 @@ public class SimpleMovement : MonoBehaviour
     public bool currentlyMakingSound = false;
 
     private float currentTimer = 0;
-    private float totalTime = 3;
+    private float totalTime = 1f;
 
     // Reference to the character's Rigidbody component
     private Rigidbody rb;

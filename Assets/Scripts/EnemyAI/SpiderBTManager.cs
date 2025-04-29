@@ -13,8 +13,10 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public SimpleMovement playerManager;
 
     //Stats
-    public float runSpeed;
     public float walkSpeed;
+    public float chaseSpeed;
+    public float runSpeed;
+    public float sprintSpeed;
 
     [HideInInspector] public NavMeshAgent navigation;
     public Transform test;
@@ -41,6 +43,7 @@ public class SpiderBTManager : MonoBehaviour
     //AlertState
 
     [HideInInspector] public bool alertStateActivated = false;
+    [HideInInspector] public float hearingSensitivity = 100f;
 
 
     void Awake()
@@ -64,6 +67,14 @@ public class SpiderBTManager : MonoBehaviour
     {
 
         rootNode.Evaluate(this);
+    }
+
+    public void ResetPatrolState()
+    {
+        walkToNewRoomAllowed = true;
+        currentlyWalkingToRoom = false;
+        startSearchingRoom = true;
+        currentlySearchingRoom = false;
     }
 
     private void GetPatrolPositions()
@@ -119,12 +130,21 @@ public class SpiderBTManager : MonoBehaviour
         WalkToRoom walkToRoom = new WalkToRoom();
         PatrolRoomConditions patrolRoomConditions = new PatrolRoomConditions();
         PatrolRoom patrolRoom = new PatrolRoom();
+        HearingConditions hearingConditions = new HearingConditions();
+        InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
+        InspectSound inspectSound = new InspectSound();
 
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
         Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
 
+
+        //Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSoundConditions, inspectSound });
+        Sequence alertState = new Sequence(new List<BTNode>() { hearingConditions, inspectSound }); //ändra till selector
+
+
         Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
 
-        rootNode = new Selector(new List<BTNode>() { patrolState });
+
+        rootNode = new Selector(new List<BTNode>() { alertState, patrolState });
     }
 }
