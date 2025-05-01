@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PatrolRoom : BTNode
 {
-    private bool runOnce = false;
+    public bool runOnce = false;
     private Transform[] patrolPoints;
     private bool chooseNewPatrolPoint = true;
     private Transform chosenPatrolPoint;

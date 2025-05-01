@@ -9,32 +9,41 @@ public class SpiderBTManager : MonoBehaviour
     private BTNode rootNode;
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
+    public Transform player;
+    [HideInInspector] public SimpleMovement playerManager;
 
     //Stats
-    public float runSpeed;
     public float walkSpeed;
+    public float chaseSpeed;
+    public float runSpeed;
+    public float sprintSpeed;
 
-    public NavMeshAgent navigation;
+    [HideInInspector] public NavMeshAgent navigation;
     public Transform test;
-    public Animator animator;
+    [HideInInspector] public Animator animator;
 
-    
-    public List<Transform> roomPoints;
-    public List<Transform> R1patrolPoints;
-    public List<Transform> R2patrolPoints;
-    public List<Transform> R3patrolPoints;
-    public List<Transform> R4patrolPoints;
-    public List<Transform> R5patrolPoints;
 
-    public Transform[] testarray;
+    [HideInInspector] public List<Transform> roomPoints;
+    [HideInInspector] public List<Transform> R1patrolPoints;
+    [HideInInspector] public List<Transform> R2patrolPoints;
+    [HideInInspector] public List<Transform> R3patrolPoints;
+    [HideInInspector] public List<Transform> R4patrolPoints;
+    [HideInInspector] public List<Transform> R5patrolPoints;
+
+    [HideInInspector] public Transform[] testarray;
 
     //PatrolState
 
     [HideInInspector] public bool walkToNewRoomAllowed = true;
     [HideInInspector] public bool currentlyWalkingToRoom = false;
-    public Transform chosenRoom;
-    public bool startSearchingRoom = true;
-    public bool currentlySearchingRoom = false;
+    [HideInInspector] public Transform chosenRoom;
+    [HideInInspector] public bool startSearchingRoom = true;
+    [HideInInspector] public bool currentlySearchingRoom = false;
+
+    //AlertState
+
+    [HideInInspector] public bool alertStateActivated = false;
+    [HideInInspector] public float hearingSensitivity = 100f;
 
 
     void Awake()
@@ -49,6 +58,8 @@ public class SpiderBTManager : MonoBehaviour
         chosenRoom = roomPoints[0];
         ConstructBT();
 
+        playerManager = player.GetComponent<SimpleMovement>();
+
     }
 
     // Update is called once per frame
@@ -56,6 +67,14 @@ public class SpiderBTManager : MonoBehaviour
     {
 
         rootNode.Evaluate(this);
+    }
+
+    public void ResetPatrolState()
+    {
+        walkToNewRoomAllowed = true;
+        currentlyWalkingToRoom = false;
+        startSearchingRoom = true;
+        currentlySearchingRoom = false;
     }
 
     private void GetPatrolPositions()
@@ -111,12 +130,21 @@ public class SpiderBTManager : MonoBehaviour
         WalkToRoom walkToRoom = new WalkToRoom();
         PatrolRoomConditions patrolRoomConditions = new PatrolRoomConditions();
         PatrolRoom patrolRoom = new PatrolRoom();
+        HearingConditions hearingConditions = new HearingConditions();
+        InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
+        InspectSound inspectSound = new InspectSound();
 
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
         Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
 
+
+        //Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSoundConditions, inspectSound });
+        Sequence alertState = new Sequence(new List<BTNode>() { hearingConditions, inspectSound }); //ändra till selector
+
+
         Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
 
-        rootNode = new Selector(new List<BTNode>() { patrolState });
+
+        rootNode = new Selector(new List<BTNode>() { alertState, patrolState });
     }
 }
