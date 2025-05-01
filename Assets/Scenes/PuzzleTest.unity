@@ -2210,102 +2210,6 @@ Transform:
   - {fileID: 1911615042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &972133135
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 972133137}
-  - component: {fileID: 972133139}
-  - component: {fileID: 972133138}
-  m_Layer: 0
-  m_Name: ChestSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &972133137
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972133135}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &972133138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972133135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec5f76c9427547479974e4a831bcfa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stoneTestPrefab: []
-  stoneCoverage: 0.5
---- !u!114 &972133139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972133135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d111c7cad11758c4baddc26360586b66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addRoomParent: {fileID: 0}
-  chestPrefab: {fileID: 8065520241439415400, guid: 5b8ac7969fcbee04481e3a4df627c29a,
-    type: 3}
-  spawners:
-  - {fileID: 972133138}
-  keyPrefab: {fileID: 1477938177466484256, guid: ca8b5c3049653054aa3f12e77d86bdba,
-    type: 3}
-  keys:
-  - Yellow
-  - Red
-  - Blue
-  - Green
-  rooms:
-  - id: 0
-    name: YellowRoom
-    spawnPoints:
-    - {fileID: 1316527747}
-    - {fileID: 759776147}
-    - {fileID: 856625661}
-  - id: 1
-    name: GreenRoom
-    spawnPoints:
-    - {fileID: 2123224409}
-    - {fileID: 1155456434}
-    - {fileID: 743514408}
-  - id: 2
-    name: RedRoom
-    spawnPoints:
-    - {fileID: 1539768996}
-    - {fileID: 2054984836}
-    - {fileID: 1911615042}
-  - id: 3
-    name: BlueRoom
-    spawnPoints:
-    - {fileID: 1372196583}
-    - {fileID: 312472093}
-    - {fileID: 1731243107}
 --- !u!1 &1031833919
 GameObject:
   m_ObjectHideFlags: 0
@@ -4108,6 +4012,134 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.12193201, y: 0.039105855, z: 0.23262405}
   m_Center: {x: 0, y: -9.313226e-10, z: 0.0000000037252903}
+--- !u!1001 &4383637465924617662
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3783791828295334861, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_Name
+      value: ChestSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165245991242577058, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[0].spawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1316527747}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[0].spawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 759776147}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[0].spawnPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 856625661}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[1].spawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2123224409}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[1].spawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1155456434}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[1].spawnPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 743514408}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[2].spawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1539768996}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[2].spawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2054984836}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[2].spawnPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1911615042}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[3].spawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1372196583}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[3].spawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 312472093}
+    - target: {fileID: 7237619704136114262, guid: 4362900a592abce45a8df472994973e1,
+        type: 3}
+      propertyPath: 'rooms.Array.data[3].spawnPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1731243107}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4362900a592abce45a8df472994973e1, type: 3}
 --- !u!23 &5055878046735648101
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4198,7 +4230,7 @@ SceneRoots:
   - {fileID: 310879400}
   - {fileID: 1153799147}
   - {fileID: 1443968141}
-  - {fileID: 972133137}
+  - {fileID: 4383637465924617662}
   - {fileID: 1165716981}
   - {fileID: 737142413}
   - {fileID: 911548154}
