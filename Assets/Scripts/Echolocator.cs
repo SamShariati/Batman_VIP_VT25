@@ -69,6 +69,7 @@ public class Echolocator : MonoBehaviour
 
         lastFrameData = new float[microphoneData.sampleRate / 2];
         MicrophoneToAudioClip();
+        pulseDelay = minPulseDelay;
     }
 
     public void MicrophoneToAudioClip()

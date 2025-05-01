@@ -6,6 +6,8 @@ public class DynamicNoiseMaker : MonoBehaviour
     Rigidbody Rigidbody;
     public float maxSoundRange = 15;
     public float minImpact = .5f;
+    private float lastEmitTime;
+    public float maxEmitTime = .5f;
     void Start()
     {
         SoundBubbleSpawner = FindAnyObjectByType<SoundBubbleSpawner>();
@@ -18,12 +20,21 @@ public class DynamicNoiseMaker : MonoBehaviour
         
     }
 
+    public void Emit(float range, bool collision = true)
+    {
+        if(lastEmitTime + maxEmitTime < Time.time)
+        {
+            lastEmitTime = Time.time;
+            SoundBubbleSpawner.EmitBubble(transform.position, Mathf.Min(range, maxSoundRange), collision);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         float I = collision.impulse.sqrMagnitude;
         if (I > minImpact && SoundBubbleSpawner)
         {
-            SoundBubbleSpawner.EmitBubble(transform.position, Mathf.Max(I, maxSoundRange));
+            Emit(Mathf.Min(I, maxSoundRange));
         }
     }
 }

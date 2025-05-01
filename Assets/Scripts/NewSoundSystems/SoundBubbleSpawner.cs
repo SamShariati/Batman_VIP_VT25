@@ -73,10 +73,10 @@ public class SoundBubbleSpawner : MonoBehaviour
         //}
     }
 
-    public void EmitBubble(Vector3 position, float size)
+    public void EmitBubble(Vector3 position, float size, bool collision = true)
     {
         pool.Get(out SoundBubble bubble);
-        bubble.Init(position, size);
+        bubble.Init(position, size, collision);
     }
 
     public void Release(SoundBubble soundBubble)

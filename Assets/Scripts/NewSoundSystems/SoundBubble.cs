@@ -24,12 +24,13 @@ public class SoundBubble : MonoBehaviour
         this.spawner = pool;
     }
 
-    internal void Init(Vector3 position, float size)
+    internal void Init(Vector3 position, float size, bool collision = true)
     {
         transform.position = position;
         this.size = size;
         transform.localScale = Vector3.zero;
         gameObject.SetActive(true);
+        GetComponent<SphereCollider>().enabled = collision;
     }
 
     void Update()
