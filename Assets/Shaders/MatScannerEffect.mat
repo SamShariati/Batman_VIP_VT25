@@ -50,7 +50,7 @@ Material:
     - _CastShadows: 0
     - _Cull: 0
     - _DstBlend: 10
-    - _IntersectDepth: 0.6
+    - _IntersectDepth: 0.9
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5

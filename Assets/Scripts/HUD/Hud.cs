@@ -7,12 +7,22 @@ public class Hud : MonoBehaviour
 
     GameObject playerObject;
     public event Action<GameObject> OnPlayerObject;
+    public GameObject[] debugHUD;
+    public bool showDebug;
 
     void Start()
     {
         if(TryGetComponent(out Image border))
         {
             border.enabled = false;
+        }
+
+        if (showDebug)
+        {
+            foreach (var item in debugHUD)
+            {
+                item.SetActive(true);
+            }
         }
 
         PlayerHud.SubscribeToPlayer(OnPlayer);
@@ -42,6 +52,13 @@ public class Hud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            showDebug = !showDebug;
+            foreach (var item in debugHUD)
+            {
+                item.SetActive(showDebug);
+            }
+        }
     }
 }

@@ -35,7 +35,7 @@ public class Chest : MonoBehaviour, IInteractable
         {
             OpenChest();
         }
-        else if (interactor.TryGetComponent(out TempKeyInventory inventory))
+        else if (interactor.TryGetComponent(out KeyRockHandler inventory))
         {
             if (!open && inventory.HasKey(requiredKey))
             {
@@ -62,7 +62,7 @@ public class Chest : MonoBehaviour, IInteractable
         {
             return;
         }
-        if (interactor.TryGetComponent(out TempKeyInventory inventory))
+        if (interactor.TryGetComponent(out KeyRockHandler inventory))
         {
             if (inventory.HasKey(requiredKey))
             {

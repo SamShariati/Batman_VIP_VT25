@@ -19,7 +19,7 @@ public class SpawnChests : MonoBehaviour
 {
     public Transform addRoomParent;
     public Chest chestPrefab;
-
+    public Chest finalChest; // this might be achest in the end...
     public List<SpawnerBase> spawners = new();
     public Key keyPrefab;
     public string[] keys;
@@ -50,10 +50,12 @@ public class SpawnChests : MonoBehaviour
         }
         int lastSpawnId = Random.Range(0, rooms[0].spawnPoints.Count);
         Transform keyTransform = rooms[0].spawnPoints[lastSpawnId];
-        SpawnKey(keyTransform.position, keys[0]);
+        SpawnKey(keyTransform.position + Vector3.up * .5f, keys[0]);
 
         rooms[0].spawnPoints.RemoveAt(lastSpawnId);
         rooms2.Add(rooms[0]);
+
+        if(finalChest)finalChest.requiredKey = keys[^1]; //last key for ther final cherts
 
         foreach (var spawner in spawners)
         {

@@ -12,12 +12,13 @@ public class Key : MonoBehaviour, IInteractable
 
     public void Interact(Transform interactor)
     {
-        if(interactor.TryGetComponent(out TempKeyInventory inventory))
+        if(interactor.TryGetComponent(out KeyRockHandler inventory))
         {
             if (inventory.PickUpKey(keyColour))
             {
                 gameObject.SetActive(false);
                 inventory.PickUpAnim();
+                Destroy(gameObject);
             }
             else
             {
@@ -28,7 +29,7 @@ public class Key : MonoBehaviour, IInteractable
 
     public void SpeculateInteract(Transform interactor)
     {
-        if (interactor.TryGetComponent(out TempKeyInventory inventory))
+        if (interactor.TryGetComponent(out KeyRockHandler inventory))
         {
             if (inventory.HasKey(keyColour))
             {

@@ -48,6 +48,8 @@ public class Echolocator : MonoBehaviour
     public float Pitch { get; private set; }
     public float MaxLoudness { get; private set; }
 
+    public float LoudnessThreshold => microphoneData.threshold;
+
 
     public float[] FrequencyData => lastFrameData;
     //public float LoudnessThreshold => loudnessThreshold;

@@ -9,7 +9,6 @@ public class TorchToggle : MonoBehaviour
 
     private void Start()
     {
-        toggle = true;
         torchAnimator.SetBool("TorchUp", toggle);
     }
 
