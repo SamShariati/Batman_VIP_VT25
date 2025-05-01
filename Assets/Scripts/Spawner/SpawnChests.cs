@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -11,34 +10,62 @@ public class Room
 
     public int id;
     public string name;
-    public Transform[] spawnPoints;
+    public List<Transform> spawnPoints;
 }
+
+
 
 public class SpawnChests : MonoBehaviour
 {
     public Transform addRoomParent;
     public Chest chestPrefab;
+
+    public List<SpawnerBase> spawners = new();
     public Key keyPrefab;
     public string[] keys;
     public List<Room> rooms = new();
+    private List<Room> rooms2 = new();
+    public List<Chest> chests = new();
+    public Key key;
+    public event Action<List<Room>> OnChestSpawned;
 
     void Start()
     {
+        
+        
         for (int i = 1; i < keys.Length; i++)
         {
             string keyToOpen = keys[i-1];
             string keyToSpawn = keys[i];
             int roomId = Random.Range(0, rooms.Count);
-            int spawnId = Random.Range(0, rooms[roomId].spawnPoints.Length);
+            int spawnId = Random.Range(0, rooms[roomId].spawnPoints.Count);
             Transform transform = rooms[roomId].spawnPoints[spawnId];
+            //rooms[roomId].id = roomId;
+            rooms[roomId].spawnPoints.RemoveAt(spawnId);
             rooms[roomId].name = keyToOpen;
+            rooms2.Add(rooms[roomId]);
+
             rooms.RemoveAt(roomId); //remove the room, we have spawned a chest in it
             SpawnChest(transform, keyToOpen, keyToSpawn);
         }
-        int lastSpawnId = Random.Range(0, rooms[0].spawnPoints.Length);
+        int lastSpawnId = Random.Range(0, rooms[0].spawnPoints.Count);
         Transform keyTransform = rooms[0].spawnPoints[lastSpawnId];
         SpawnKey(keyTransform.position, keys[0]);
 
+        rooms[0].spawnPoints.RemoveAt(lastSpawnId);
+        rooms2.Add(rooms[0]);
+
+        foreach (var spawner in spawners)
+        {
+            spawner.spawnChests = this;
+            spawner.Init();
+            spawner.Spawn(rooms2);
+        }
+
+        foreach (var spawner in spawners)
+        {
+            spawner.FinalTouches();
+        }
     }
 
     private void SpawnChest(Transform transform, string keyToOpen, string keyToSpawn)
@@ -48,6 +75,7 @@ public class SpawnChests : MonoBehaviour
         Chest chest = Instantiate(chestPrefab, transform.position, Quaternion.identity);
         chest.requiredKey = keyToOpen;
         chest.requireKey = true;
+        chests.Add(chest);
         SpawnKey(chest.KeyPosition, keyToSpawn); //spawn the ky in the chest
     }
 
@@ -57,6 +85,7 @@ public class SpawnChests : MonoBehaviour
         Key keyInstance = Instantiate(keyPrefab, position, Quaternion.identity);
         keyInstance.keyColour = key;
         keyInstance.gameObject.name = key + "Key";
+        this.key =  keyInstance;
     }
 
     // Update is called once per frame
@@ -80,8 +109,8 @@ public class SpawnChests : MonoBehaviour
 
                 rooms.Add(new Room { 
                     id = rooms.Count, 
-                    name = addRoomParent.name, 
-                    spawnPoints = children
+                    name = addRoomParent.name,
+                    spawnPoints = new(children)
                 });
                 Debug.Log("Added a room: " + addRoomParent.name);
             }
