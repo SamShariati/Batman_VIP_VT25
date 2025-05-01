@@ -1,12 +1,13 @@
 using UnityEngine;
-using System.Linq;
-using System;
 using System.Numerics;
 
 public class AudioLoudnessDetection : MonoBehaviour
 {
-    public int sampleWindow = 2048; // Number of samples to analyze
-    public AudioClip microphoneAudioClip;
+
+    public MicrophoneData microphoneData;
+   // public int sampleWindow = 2048; // Number of samples to analyze
+    AudioClip microphoneAudioClip;
+    string microphoneName;// = microphoneData.microphone;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     public void MicrophoneToAudioClip()
     {
-        string microphoneName = Microphone.devices[0];
+        microphoneName = microphoneData.microphone;
         Debug.Log(microphoneName);
 
         microphoneAudioClip = Microphone.Start(microphoneName, true, 20, AudioSettings.outputSampleRate);
@@ -24,15 +25,17 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     public float GetLoudnessFromMicrophone()
     {
-        return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneAudioClip);
+        return 0;// GetLoudnessFromAudioClip(Microphone.GetPosition(microphoneName), microphoneAudioClip);
     }
 
     public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
     {
+        int sampleWindow = 128;
         int startPosition = clipPosition - sampleWindow;
-
+        
         if (startPosition < 0)
         {
+            
             return 0;
         }
 
@@ -52,12 +55,13 @@ public class AudioLoudnessDetection : MonoBehaviour
     // New method to detect pitch
     public float GetPitchFromMicrophone()
     {
-        int position = Microphone.GetPosition(Microphone.devices[0]);
-        return GetPitchFromAudioClip(position, microphoneAudioClip);
+        //int position = Microphone.GetPosition(Microphone.devices[0]);
+        return 0;// GetPitchFromAudioClip(position, microphoneAudioClip);
     }
 
     public float GetPitchFromAudioClip(int clipPosition, AudioClip clip)
     {
+        int sampleWindow = microphoneData.sampleWindow;
         int startPosition = clipPosition - sampleWindow;
         if (startPosition < 0) return 0;
 
@@ -78,7 +82,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         // Calculate the dominant frequency from FFT result
         float maxAmplitude = 0;
         int maxIndex = 0;
-        float sampleRate = AudioSettings.outputSampleRate;
+        float sampleRate = microphoneData.sampleRate;
 
         // Threshold for minimum amplitude to consider for pitch detection -- we don care about the low anyway...?
         //float amplitudeThreshold = 0.01f; // Adjust as necessary --- expose this in snspector for tweaks??
