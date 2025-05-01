@@ -31,8 +31,8 @@ public class SpawnChests : MonoBehaviour
 
     void Start()
     {
-        
-        
+        ArrayUtil.Shuffle(keys);
+
         for (int i = 1; i < keys.Length; i++)
         {
             string keyToOpen = keys[i-1];
