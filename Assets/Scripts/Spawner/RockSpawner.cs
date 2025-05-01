@@ -22,8 +22,9 @@ public class RockSpawner : SpawnerBase
     }
 
 
-    //spawns a rock randomly, this does nog gaurantee a rock in each room so if you want that more sophisticated algo is needed
-    //but just rewite this...
+    //rooms are the rooms, each room contains a list of spawn points
+    //select spawn points and spawn stuff at them THEN REMOVE the spawn point for the next spawner
+    //so all spawns passed on are valid!
     public override List<Room> Spawn(List<Room> rooms)
     {
         if (stoneTestPrefab == null || stoneCoverage <= 0)
