@@ -17,9 +17,14 @@ public class Echolocator : MonoBehaviour
     //public float loudnessBoost = 1000;
     [Tooltip("How far can a pulse reach in meters")]
     public float maxRange = 100f;
+    public float minRange = 10f;
     private float loudnessFloater;
     [Tooltip("How fast the loudness decreases")]public float loudnessFloaterSpeed = 0.6f;
     [Tooltip("Delay befor loudness starts decreasing")] public float loudnessFloaterDelay = 0.6f;
+
+    [Tooltip("Delay befor loudness starts decreasing")] public float delayLoudnessAmpMin = 2f;
+    [Tooltip("Delay befor loudness starts decreasing")] public float delayLoudnessAmpMax = 10f;
+    [Tooltip("Delay befor loudness starts decreasing")] public bool delayLoudnessAmp = true;
     private float loudnessFloaterTimer;
     float loudness;
 
@@ -100,9 +105,16 @@ public class Echolocator : MonoBehaviour
         {
             loudnessFloater = loudness;
             loudnessFloaterTimer = loudnessFloaterDelay;
+            if (delayLoudnessAmp)
+            {
+                loudnessFloaterTimer = Mathf.Lerp(delayLoudnessAmpMin, delayLoudnessAmpMax, LoudnessNormalized);
+            }
+
         }
         Loudness = loudnessFloater;
         LoudnessNormalized = Mathf.InverseLerp(0, microphoneData.maxLoudness, loudnessFloater);
+
+        
 
         if (pulseTime + pulseDelay > Time.time) return; //dont do anything if we on cooldown
 
@@ -232,6 +244,6 @@ public class Echolocator : MonoBehaviour
             system.Emit(emitParams, 1);
         }
 
-        OnEmit?.Invoke(range);
+        OnEmit?.Invoke(Mathf.Max(minRange,range));
     }
 }

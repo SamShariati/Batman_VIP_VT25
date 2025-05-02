@@ -73,8 +73,17 @@ public class SpawnChests : MonoBehaviour
     private void SpawnChest(Transform transform, string keyToOpen, string keyToSpawn)
     {
         //do a better job on the spawn position
-        
-        Chest chest = Instantiate(chestPrefab, transform.position, Quaternion.identity);
+
+        Quaternion rot = Quaternion.AngleAxis(Random.value * 360, Vector3.up);
+
+        Vector3 pos = transform.position;
+        if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 500))
+        {
+            pos = hit.point;
+        }
+
+
+        Chest chest = Instantiate(chestPrefab, pos, rot);
         chest.requiredKey = keyToOpen;
         chest.requireKey = true;
         chests.Add(chest);

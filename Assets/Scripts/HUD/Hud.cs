@@ -17,13 +17,12 @@ public class Hud : MonoBehaviour
             border.enabled = false;
         }
 
-        if (showDebug)
+       
+        foreach (var item in debugHUD)
         {
-            foreach (var item in debugHUD)
-            {
-                item.SetActive(true);
-            }
+            item.SetActive(showDebug);
         }
+        
 
         PlayerHud.SubscribeToPlayer(OnPlayer);
     }
