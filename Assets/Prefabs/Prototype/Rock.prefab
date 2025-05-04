@@ -93,6 +93,12 @@ MonoBehaviour:
   maxSoundRange: 15
   minImpact: 0.5
   maxEmitTime: 0.2
+  clips:
+  - {fileID: 8300000, guid: 9020d1a03ffe0c24cab2e5ca687070ce, type: 3}
+  - {fileID: 8300000, guid: 1dd81e75fc2388d4999ab67cdaa7c50e, type: 3}
+  - {fileID: 8300000, guid: 4654f8d64cbece446b6705a06748874b, type: 3}
+  - {fileID: 8300000, guid: a634ae741565d4342bb14077d0f94f2d, type: 3}
+  - {fileID: 8300000, guid: 2deb67be77eed7b468784f41e1e8df50, type: 3}
 --- !u!114 &5720772739167276471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +115,7 @@ MonoBehaviour:
   maxRadius: 4
   speed: 3
   color: {r: 0.6901961, g: 0.68235296, b: 0.9843138, a: 1}
+  ready: 1
 --- !u!33 &4707802306512275438
 MeshFilter:
   m_ObjectHideFlags: 0

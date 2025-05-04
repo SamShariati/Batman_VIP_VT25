@@ -57,6 +57,8 @@ public class SpawnChests : MonoBehaviour
 
         if(finalChest)finalChest.requiredKey = keys[^1]; //last key for ther final cherts
 
+        OnChestSpawned?.Invoke(rooms2);
+
         foreach (var spawner in spawners)
         {
             spawner.spawnChests = this;

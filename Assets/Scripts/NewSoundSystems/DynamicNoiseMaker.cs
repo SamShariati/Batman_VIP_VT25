@@ -8,6 +8,8 @@ public class DynamicNoiseMaker : MonoBehaviour
     public float minImpact = .5f;
     private float lastEmitTime;
     public float maxEmitTime = .5f;
+    public AudioClip[] clips;
+
     void Start()
     {
         SoundBubbleSpawner = FindAnyObjectByType<SoundBubbleSpawner>();
@@ -35,6 +37,7 @@ public class DynamicNoiseMaker : MonoBehaviour
         if (I > minImpact && SoundBubbleSpawner)
         {
             Emit(Mathf.Min(I, maxSoundRange));
+            AudioFX.Instance.PlayClip(clips, transform.position);
         }
     }
 }
