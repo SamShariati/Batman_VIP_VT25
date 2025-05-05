@@ -79,6 +79,7 @@ public class Echolocator : MonoBehaviour
 
     public void MicrophoneToAudioClip()
     {
+        if(string.IsNullOrEmpty(microphoneData.microphone)) return;
         microphoneAudioClip = Microphone.Start(microphoneData.microphone, true, 20, microphoneData.sampleRate);
         Debug.Assert(microphoneAudioClip, "microphoneAudioClip creation failed");
         Debug.Log("Microphone: " + microphoneData.microphone + " with sampling frequency: " + microphoneAudioClip.frequency);
@@ -87,6 +88,16 @@ public class Echolocator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKey(KeyCode.Q) && pulseTime + pulseDelay < Time.time)
+        {
+            pulseTime = Time.time;
+            pulseDelay = minPulseDelay;
+            PulseOnce(1);
+        }
+
+
+        if (!microphoneAudioClip) return;
         UpdateMic();
 
         DirectLoudness = loudness;
@@ -138,12 +149,6 @@ public class Echolocator : MonoBehaviour
             PulseOnce(LoudnessNormalized);
         }
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            pulseTime = Time.time;
-            pulseDelay = minPulseDelay;
-            PulseOnce(1);
-        }
     }
 
     private void UpdateMic()

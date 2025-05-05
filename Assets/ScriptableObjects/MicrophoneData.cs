@@ -52,6 +52,7 @@ public class MicrophoneData : ScriptableObject
         avalibleMicrophones = Microphone.devices;
         if(avalibleMicrophones == null || avalibleMicrophones.Length == 0)
         {
+            microphone = string.Empty;
             return;
         }
 
