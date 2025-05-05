@@ -313,6 +313,26 @@ PrefabInstance:
       objectReference: {fileID: 325995589}
     - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
         type: 3}
+      propertyPath: runSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
+        type: 3}
+      propertyPath: chaseSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
+        type: 3}
+      propertyPath: sprintSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
+        type: 3}
       propertyPath: roomPointsPrefab
       value: 
       objectReference: {fileID: 490772560}
@@ -696,7 +716,7 @@ Transform:
   m_GameObject: {fileID: 325995584}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 2.5, z: -21.8}
+  m_LocalPosition: {x: -0.46, y: 3.24, z: 6.43}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
