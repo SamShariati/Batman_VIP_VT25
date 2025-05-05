@@ -25,10 +25,11 @@ public class PatrolRoom : BTNode
         agent.currentlySearchingRoom = true;
         agent.navigation.speed = agent.walkSpeed;
 
-        if (!runOnce)
+        agent.test = chosenPatrolPoint;
+        if (agent.getNewPointList)
         {
             GetCorrectPointList(agent);
-            runOnce = true;
+            agent.getNewPointList = false;
         }
 
         if (activateNewPatrolPoint)
@@ -62,7 +63,7 @@ public class PatrolRoom : BTNode
         if (nrTimesSwappedPoint == 3)
         {
             nrTimesSwappedPoint = 0;
-            runOnce = false;
+            agent.getNewPointList = true;
             agent.walkToNewRoomAllowed = true;
             agent.currentlySearchingRoom = false;
             return NodeState.SUCCESS;

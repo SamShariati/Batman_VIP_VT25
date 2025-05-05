@@ -36,9 +36,10 @@ public class SpiderBTManager : MonoBehaviour
 
     [HideInInspector] public bool walkToNewRoomAllowed = true;
     [HideInInspector] public bool currentlyWalkingToRoom = false;
-    [HideInInspector] public Transform chosenRoom;
+    public Transform chosenRoom;
     [HideInInspector] public bool startSearchingRoom = true;
     [HideInInspector] public bool currentlySearchingRoom = false;
+    [HideInInspector] public bool getNewPointList = true;
 
     //AlertState
 
@@ -75,6 +76,7 @@ public class SpiderBTManager : MonoBehaviour
         currentlyWalkingToRoom = false;
         startSearchingRoom = true;
         currentlySearchingRoom = false;
+        getNewPointList = true;
     }
 
     private void GetPatrolPositions()
