@@ -44,7 +44,7 @@ public class SpiderBTManager : MonoBehaviour
     //AlertState
 
     [HideInInspector] public bool terrifyReady = true;
-    [HideInInspector] public bool currentlyInTerrify = false;
+    [HideInInspector] public bool terrifyStateActivated = false;
     [HideInInspector] public bool alertStateActivated = false;
     [HideInInspector] public float hearingSensitivity = 100f;
 
