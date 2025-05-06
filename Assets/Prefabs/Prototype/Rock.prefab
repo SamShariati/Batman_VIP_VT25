@@ -93,6 +93,8 @@ MonoBehaviour:
   maxSoundRange: 15
   minImpact: 0.5
   maxEmitTime: 0.2
+  rotationMultiplier: 0.5
+  velocityMultiplier: 0.5
   clips:
   - {fileID: 8300000, guid: 9020d1a03ffe0c24cab2e5ca687070ce, type: 3}
   - {fileID: 8300000, guid: 1dd81e75fc2388d4999ab67cdaa7c50e, type: 3}
@@ -111,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b39d8a265254b444bbe59529e461333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 6180974025251484762}
   maxTime: 3
   maxRadius: 4
   speed: 3
@@ -176,7 +179,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368783587043633911}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7d77aaec7d22bc3479b87c5bf475a31d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -65,7 +65,7 @@ public class FindObjectsHUD : MonoBehaviour
         if (showChests)
         {
             Chest[] rocks = FindObjectsByType<Chest>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-            ForEachIcon<Chest>(activeRockIcons, rocks, (item, icon) => UpdateIcon(item.transform.position, icon, item.requiredKey + " chest", Color.yellow));
+            ForEachIcon<Chest>(activeChestIcons, rocks, (item, icon) => UpdateIcon(item.transform.position, icon, item.requiredKey + " chest", Color.yellow));
         }
 
 

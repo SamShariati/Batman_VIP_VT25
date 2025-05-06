@@ -8,9 +8,11 @@ public class DynamicNoiseMaker : MonoBehaviour
     public float minImpact = .5f;
     private float lastEmitTime;
     public float maxEmitTime = .5f;
+    public float rotationMultiplier = .5f;
+    public float velocityMultiplier = .5f;
     public AudioClip[] clips;
 
-    void Start()
+    void Awake()
     {
         SoundBubbleSpawner = FindAnyObjectByType<SoundBubbleSpawner>();
         Rigidbody = GetComponent<Rigidbody>();
@@ -39,5 +41,7 @@ public class DynamicNoiseMaker : MonoBehaviour
             Emit(Mathf.Min(I, maxSoundRange));
             AudioFX.Instance.PlayClip(clips, transform.position);
         }
+        Rigidbody.angularVelocity *= rotationMultiplier;
+        Rigidbody.linearVelocity *= velocityMultiplier;
     }
 }

@@ -55,6 +55,7 @@ public class Echolocator : MonoBehaviour
 
     public float LoudnessThreshold => microphoneData.threshold;
 
+    public bool CurrentlyMakingSound => LoudnessNormalized >= LoudnessThreshold;
 
     public float[] FrequencyData => lastFrameData;
     //public float LoudnessThreshold => loudnessThreshold;
