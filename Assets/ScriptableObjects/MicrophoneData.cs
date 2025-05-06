@@ -1,11 +1,11 @@
-using System.Numerics;
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MicrophoneData", menuName = "ScriptableObjects/MicrophoneData", order = 1)]
 public class MicrophoneData : ScriptableObject
 {
     [Tooltip("Amount of samples for loudness check")]
-    public int sampleLoudnessWindow = 64;
+    public int sampleLoudnessWindow = 128;
     [Tooltip("Normalized - cuts off sound below this")]
     public float threshold = 0.1f;
     [Tooltip("Clamps sound louder than this")]
@@ -13,11 +13,11 @@ public class MicrophoneData : ScriptableObject
     [Tooltip("Max Amplitude")]
     public float maxAmplitude = 23000;
     [Tooltip("Frequency of the microphone")]
-    public int sampleRate = 2024;
+    public int sampleRate = 8096;
     [Tooltip("Amount of samples for frequency analysis")]
-    public int sampleWindow = 512;
+    public int sampleWindow = 256;
     [Tooltip("How much to boost the sounds, they are tiny tiny numbers otherwise...")]
-    public float micBoost = 300;
+    public float micBoost = 500;
     [Tooltip("Will use this mic if it exists or be set to first avalible mic on start")]
     public string microphone;
     public string[] avalibleMicrophones;
@@ -33,7 +33,7 @@ public class MicrophoneData : ScriptableObject
 
     private void OnEnable()
     {
-        
+        //Load();
         ValidateMic();
 
         if (Application.isPlaying)
@@ -82,6 +82,21 @@ public class MicrophoneData : ScriptableObject
     public int GetPosition()
     {
         return string.IsNullOrEmpty(microphone) ? 0 : Microphone.GetPosition(microphone);
+    }
+
+    public void Save()
+    {
+        string s = JsonUtility.ToJson(this, true);
+        File.WriteAllText("MicData.json",s);
+    }
+
+    public void Load()
+    {
+        if (File.Exists("MicData.json"))
+        {
+            string s = File.ReadAllText("MicData.json");
+            JsonUtility.FromJsonOverwrite(s, this);
+        }
     }
 
 }

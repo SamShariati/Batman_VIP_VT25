@@ -1,0 +1,15 @@
+{
+    "sampleLoudnessWindow": 128,
+    "threshold": 0.10000000149011612,
+    "maxLoudness": 50.0,
+    "maxAmplitude": 0.5,
+    "sampleRate": 8096,
+    "sampleWindow": 256,
+    "micBoost": 500.0,
+    "microphone": "Mikrofon på headset (HyperX 7.1 Audio)",
+    "avalibleMicrophones": [
+        "Mikrofon på headset (HyperX 7.1 Audio)",
+        "VoiceMeeter Output (VB-Audio VoiceMeeter VAIO)",
+        "CABLE Output (VB-Audio Virtual Cable)"
+    ]
+}
