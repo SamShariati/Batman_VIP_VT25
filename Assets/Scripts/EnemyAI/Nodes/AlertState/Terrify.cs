@@ -24,6 +24,8 @@ public class Terrify : BTNode
 
         if (currentTimer > totalTerrifyTimer)
         {
+            currentTimer = 0;
+            agent.terrifyStateActivated = false;
             return NodeState.SUCCESS;
         }
         else
