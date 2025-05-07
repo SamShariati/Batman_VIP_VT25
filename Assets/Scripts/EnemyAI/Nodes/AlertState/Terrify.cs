@@ -8,6 +8,9 @@ public class Terrify : BTNode
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
+
+        //FIXA SÅ ATT SPINDELN ROTERAR SIG MOT LJUDET
+
         SetSpiderSpeed(agent);
 
         currentTimer += Time.deltaTime;

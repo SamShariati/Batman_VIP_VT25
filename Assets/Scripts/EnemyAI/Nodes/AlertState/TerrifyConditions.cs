@@ -9,10 +9,11 @@ public class TerrifyConditions : BTNode
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
-        if (CheckCooldown() && !agent.terrifyStateActivated)
+        if (CheckConditions(agent))
         {
-            agent.terrifyReady = false;
+            agent.alertStateActivated = true;
             agent.terrifyStateActivated = true;
+            agent.calculatedPlayerPos = agent.player.position;
             return NodeState.SUCCESS;
         }
         else if (agent.terrifyStateActivated)
@@ -24,12 +25,24 @@ public class TerrifyConditions : BTNode
             return NodeState.FAILURE;
         }
     }
+    private bool CheckConditions(SpiderBTManager agent)
+    {
+        if (!agent.terrifyStateActivated&& !agent.alertStateActivated
+            && CheckCooldown())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     private bool CheckCooldown()
     {
         if (Time.time > lastUpdatedTime + terrifyCooldown)
         {
-            terrifyCooldown = 30f;
+            terrifyCooldown = 10f;
             lastUpdatedTime = Time.time;
             return true;
         }

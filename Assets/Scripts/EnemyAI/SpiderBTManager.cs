@@ -47,6 +47,7 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public bool terrifyStateActivated = false;
     [HideInInspector] public bool alertStateActivated = false;
     [HideInInspector] public float hearingSensitivity = 100f;
+    [HideInInspector] public Vector3 calculatedPlayerPos;
 
     
     void Awake()
@@ -140,19 +141,19 @@ public class SpiderBTManager : MonoBehaviour
         InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
         InspectSound inspectSound = new InspectSound();
 
-
+        //Branch 2
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
         Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
+        Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
+
+        //Branch 1
         Sequence terrifyState = new Sequence(new List<BTNode>() { terrifyConditions, terrify });
         Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSound });
         Selector alertState = new Selector(new List<BTNode>() { terrifyState, inspectSoundState });
-        Sequence hearingState = new Sequence(new List<BTNode>() { hearingConditions, alertState });
+        Sequence hearState = new Sequence(new List<BTNode>() { hearingConditions, alertState });
         
 
 
-        Selector patrolState = new Selector(new List<BTNode>() { hearingState, patrolRoomState });
-
-
-        rootNode = new Selector(new List<BTNode>() { alertState, patrolState });
+        rootNode = new Selector(new List<BTNode>() { hearState, patrolState });
     }
 }

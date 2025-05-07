@@ -11,7 +11,7 @@ public class HearingConditions : BTNode
 
         if (CheckPlayerSound(agent) && !agent.alertStateActivated)
         {
-            agent.alertStateActivated = true;
+            //agent.alertStateActivated = true;
             agent.ResetPatrolState();
 
             return NodeState.SUCCESS;
