@@ -5593,13 +5593,13 @@ MonoBehaviour:
   standHeight: 1.8
   crouchTransitionSpeed: 8
   crouchCameraOffset: -0.5
-  cameraRotateSpeed: 0
+  cameraRotateSpeed: 9
   footstepIntervalWalk: 0.5
   footstepIntervalSprint: 0.3
   footstepIntervalCrouch: 0.7
-  soundRadiusWalk: 5
-  soundRadiusSprint: 12
-  soundRadiusCrouch: 2
+  soundRadiusWalk: 0.4
+  soundRadiusSprint: 0.8
+  soundRadiusCrouch: 0.1
 --- !u!114 &8462787551009213418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6650,7 +6650,7 @@ PrefabInstance:
     - target: {fileID: 4772447259682322860, guid: 1a1bd7d33654403459de6d6ef6bb8c9d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.23799998
+      value: 0.23800004
       objectReference: {fileID: 0}
     - target: {fileID: 4772447259682322860, guid: 1a1bd7d33654403459de6d6ef6bb8c9d,
         type: 3}
@@ -7215,7 +7215,7 @@ PrefabInstance:
     - target: {fileID: 5577998527802752434, guid: 1a1bd7d33654403459de6d6ef6bb8c9d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.24799997
+      value: -0.24800003
       objectReference: {fileID: 0}
     - target: {fileID: 5577998527802752434, guid: 1a1bd7d33654403459de6d6ef6bb8c9d,
         type: 3}

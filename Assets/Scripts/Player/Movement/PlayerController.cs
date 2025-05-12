@@ -27,9 +27,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float footstepIntervalWalk = 0.5f;
     [SerializeField] private float footstepIntervalSprint = 0.3f;
     [SerializeField] private float footstepIntervalCrouch = 0.7f;
-    [SerializeField] private float soundRadiusWalk = 5f;
-    [SerializeField] private float soundRadiusSprint = 12f;
-    [SerializeField] private float soundRadiusCrouch = 2f;
+    public float soundRadiusWalk = 5f;
+    public float soundRadiusSprint = 12f;
+    public float soundRadiusCrouch = 2f;
 
     private Camera mainCamera;
     private CharacterController controller;

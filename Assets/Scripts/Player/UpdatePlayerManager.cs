@@ -13,8 +13,10 @@ public class UpdatePlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerManager.Instance.isCurrentlyMakingSound = eco.LoudnessNormalized > eco.LoudnessThreshold;
-        PlayerManager.Instance.normalizedSoundLevel = eco.LoudnessNormalized;
+        
+        
+        PlayerManager.Instance.isCurrentlyMakingSound = eco.LoudnessNormalized > eco.LoudnessThreshold || playerController.MovementNoiseLevel > playerController.soundRadiusCrouch;
+        PlayerManager.Instance.normalizedSoundLevel = Mathf.Max(eco.LoudnessNormalized, playerController.MovementNoiseLevel, 1);
         PlayerManager.Instance.soundPosition = transform.position;
        // playerController.
     }
