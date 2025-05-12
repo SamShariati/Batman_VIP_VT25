@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         HandleFootsteps();
 
         // Reset movement noise level when not moving
-        if (velocity.magnitude < 0.1f || !groundedPlayer)
+        if (velocity.magnitude < 0.1f)
         {
             MovementNoiseLevel = 0f;
         }
@@ -211,6 +211,21 @@ public class PlayerController : MonoBehaviour
         {
             footstepTimer = 0;
         }
+
+        float currentNoiseLevel;
+        if (isSprinting)
+        {
+            currentNoiseLevel = soundRadiusSprint;
+        }
+        else if (isCrouching)
+        {
+            currentNoiseLevel = soundRadiusCrouch;
+        }
+        else
+        {
+            currentNoiseLevel = soundRadiusWalk;
+        }
+        MovementNoiseLevel = currentNoiseLevel;
     }
 
     private void PlayFootstepSound()
@@ -234,7 +249,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Update the current movement noise level
-        MovementNoiseLevel = currentNoiseLevel;
+        //MovementNoiseLevel = currentNoiseLevel;
     }
 
     // Public property that enemies can check to determine how loud the player's movement is
