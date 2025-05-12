@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /**
@@ -16,38 +16,93 @@ public class RockSpawner : SpawnerBase
     public GameObject[] stoneTestPrefab;
     [Range(0, 1)] public float stoneCoverage = .5f;
 
+    [Header("Scale Range")]
+    public float minScale = 0.5f;
+    public float maxScale = 1.5f;
+
+    [Header("Per Room Density")]
+    public int minStonesPerRoom = 4;
+    public int maxStonesPerRoom = 6;
+
+    [Tooltip("Blocking layers")]
+    public LayerMask collisionMask;
+
+    public float baseCollisionRadius = 0.5f;
+    [Tooltip("Retry attemts")]
+    public int maxAttemptsPerStone = 5;
+
+    [Header("Ground snap")]
+    public float raycastHeight = 2f;
+    public float raycastDepth = 10f;
+
     public override void Init()
     {
         //incase we need to load somthing before
     }
-
-
     //rooms are the rooms, each room contains a list of spawn points
     //select spawn points and spawn stuff at them THEN REMOVE the spawn point for the next spawner
     //so all spawns passed on are valid!
     public override List<Room> Spawn(List<Room> rooms)
     {
-        if (stoneTestPrefab == null || stoneCoverage <= 0)
+        foreach (var room in rooms)
         {
-            return rooms;
+            SpawnRoom(room);
         }
 
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            for (int j = 0; j < rooms[i].spawnPoints.Count; j++)
-            {
-                Transform t = rooms[i].spawnPoints[j];
-                if (stoneCoverage > Random.value) {
+        return rooms;
+    }
+    //Room spawning logic
+    void SpawnRoom(Room room)
+    {
+        var points = new List<Transform>(room.spawnPoints);
+        int target = Mathf.Min(
+            Random.Range(minStonesPerRoom, maxStonesPerRoom + 1),
+            points.Count
+        );
 
-                    int s = Random.Range(0, stoneTestPrefab.Length);
-                    Instantiate(stoneTestPrefab[s], t.position, Quaternion.identity);
-                    rooms[i].spawnPoints.RemoveAt(j--); //remember to remove the spawn point if we spawn here so we dont double spawn
-                }
+        int spawned = 0;
+        while (spawned < target && points.Count > 0)
+        {
+            // pick and remove a random point
+            int idx = Random.Range(0, points.Count);
+            var t = points[idx];
+            points.RemoveAt(idx);
+
+            if (TrySpawnAt(t.position))
+                spawned++;
+        }
+
+        // hand back the unused points
+        room.spawnPoints = points;
+    }
+
+    //Spawning stones at worldPos up to max attemts
+    bool TrySpawnAt(Vector3 worldPos)
+    {
+        for (int attempt = 0; attempt < maxAttemptsPerStone; attempt++)
+        {
+            Vector3 spawnPos = GetGroundPosition(worldPos);
+            float scaleFactor = Random.Range(minScale, maxScale);
+            float radius = baseCollisionRadius * scaleFactor;
+
+            if (!Physics.CheckSphere(spawnPos, radius, collisionMask))
+            {
+                var prefab = stoneTestPrefab[Random.Range(0, stoneTestPrefab.Length)];
+                var instance = Instantiate(prefab, spawnPos, Quaternion.identity);
+                instance.transform.localScale = prefab.transform.localScale * scaleFactor;
+                return true;
             }
         }
+        return false;
+    }
 
-
-        return rooms;   
+    //Raycast to find ground
+    Vector3 GetGroundPosition(Vector3 pos)
+    {
+        var origin = pos + Vector3.up * raycastHeight;
+        if (Physics.Raycast(origin, Vector3.down, out var hit, raycastDepth))
+            return hit.point;
+        return pos;
     }
 
     public override void FinalTouches() { 
