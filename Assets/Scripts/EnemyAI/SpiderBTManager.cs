@@ -4,13 +4,14 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class SpiderBTManager : MonoBehaviour
 {
     private BTNode rootNode;
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
     public Transform player;
-    [HideInInspector] public SimpleMovement playerManager;
+    //[HideInInspector] public SimpleMovement playerManager;
 
     //Stats
     public float walkSpeed;
@@ -46,7 +47,7 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public bool terrifyReady = true;
     [HideInInspector] public bool terrifyStateActivated = false;
     [HideInInspector] public bool alertStateActivated = false;
-    [HideInInspector] public float hearingSensitivity = 100f;
+    [HideInInspector] public float hearingSensitivity = 200f;
     [HideInInspector] public Vector3 calculatedPlayerPos;
 
     
@@ -62,7 +63,7 @@ public class SpiderBTManager : MonoBehaviour
         chosenRoom = roomPoints[0];
         ConstructBT();
         
-        playerManager = player.GetComponent<SimpleMovement>();
+        //playerManager = player.GetComponent<SimpleMovement>();
 
     }
 

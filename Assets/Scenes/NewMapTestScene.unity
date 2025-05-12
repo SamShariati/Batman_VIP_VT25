@@ -315,7 +315,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 325995589}
+      objectReference: {fileID: 1359607663}
     - target: {fileID: 9083687921044824047, guid: 97c93588fcd80e74b87178d42cfafbd0,
         type: 3}
       propertyPath: runSpeed
@@ -3861,6 +3861,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1495887576}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1359607663 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5702227701111099978, guid: 5d00b4ccdee86c04f85827ce07595963,
+    type: 3}
+  m_PrefabInstance: {fileID: 899424115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1371243404
 GameObject:
   m_ObjectHideFlags: 0

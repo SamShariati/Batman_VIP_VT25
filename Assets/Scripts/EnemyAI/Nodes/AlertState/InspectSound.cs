@@ -62,7 +62,7 @@ public class InspectSound : BTNode
     {
         float distance = Vector3.Distance(agent.transform.position, agent.player.position);
 
-        if (distance < agent.hearingSensitivity && agent.playerManager.currentlyMakingSound)
+        if (distance < agent.hearingSensitivity && PlayerManager.Instance.isCurrentlyMakingSound)
         {
             agent.navigation.speed = agent.chaseSpeed;
         }
@@ -75,9 +75,9 @@ public class InspectSound : BTNode
     private void CalculatePlayerPosition(SpiderBTManager agent)
     {
         alertDistance = Vector3.Distance(agent.transform.position, agent.player.position);
-        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
+        hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
 
-        if (agent.playerManager.currentlyMakingSound && alertDistance < hearingDistance)
+        if (PlayerManager.Instance.isCurrentlyMakingSound && alertDistance < hearingDistance)
         {
             agent.calculatedPlayerPos = agent.player.position;
         }

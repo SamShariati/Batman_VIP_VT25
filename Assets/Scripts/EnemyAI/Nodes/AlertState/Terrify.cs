@@ -46,7 +46,7 @@ public class Terrify : BTNode
     {
         float distance = Vector3.Distance(agent.transform.position, agent.player.position);
 
-        if (distance < agent.hearingSensitivity && agent.playerManager.currentlyMakingSound)
+        if (distance < agent.hearingSensitivity && PlayerManager.Instance.isCurrentlyMakingSound)
         {
             agent.navigation.speed = agent.chaseSpeed;
         }
