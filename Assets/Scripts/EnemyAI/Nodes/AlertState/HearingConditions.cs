@@ -31,9 +31,9 @@ public class HearingConditions : BTNode
     private bool CheckPlayerSound(SpiderBTManager agent)
     {
         distance = Vector3.Distance(agent.transform.position, agent.player.position);
-        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
+        hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
 
-        if (agent.playerManager.currentlyMakingSound && distance < hearingDistance)
+        if (PlayerManager.Instance.isCurrentlyMakingSound && distance < hearingDistance)
         {
             return true;
         }
