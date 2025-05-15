@@ -11,7 +11,7 @@ public class SpiderBTManager : MonoBehaviour
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
     public Transform player;
-    //[HideInInspector] public SimpleMovement playerManager;
+    [HideInInspector] public SimpleMovement playerManager;
 
     //Stats
     public float walkSpeed;
@@ -63,7 +63,7 @@ public class SpiderBTManager : MonoBehaviour
         chosenRoom = roomPoints[0];
         ConstructBT();
         
-        //playerManager = player.GetComponent<SimpleMovement>();
+        playerManager = player.GetComponent<SimpleMovement>();
 
     }
 

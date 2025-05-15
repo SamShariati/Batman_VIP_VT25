@@ -76,11 +76,18 @@ public class InspectSound : BTNode
     {
         alertDistance = Vector3.Distance(agent.transform.position, agent.player.position);
         hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
+        //hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
 
         if (PlayerManager.Instance.isCurrentlyMakingSound && alertDistance < hearingDistance)
         {
             agent.calculatedPlayerPos = agent.player.position;
         }
+
+        //if (agent.playerManager.isCurrentlyMakingSound && alertDistance < hearingDistance)
+        //{
+        //    agent.calculatedPlayerPos = agent.player.position;
+        //}
+        
     }
 
     private void ActivateTimer()
