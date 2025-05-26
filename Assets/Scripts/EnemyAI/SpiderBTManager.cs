@@ -12,6 +12,7 @@ public class SpiderBTManager : MonoBehaviour
     public Transform patrolPointsPrefab;
     public Transform player;
     [HideInInspector] public SimpleMovement playerManager;
+    SpiderVision vision;
 
     //Stats
     public float walkSpeed;
@@ -56,6 +57,7 @@ public class SpiderBTManager : MonoBehaviour
 
         navigation = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        vision = GetComponent<SpiderVision>();
         animator.SetBool("Agent_Idle", true);
         walkToNewRoomAllowed = true;
         GetPatrolPositions();
@@ -64,7 +66,7 @@ public class SpiderBTManager : MonoBehaviour
         ConstructBT();
         
         playerManager = player.GetComponent<SimpleMovement>();
-
+        
     }
 
     // Update is called once per frame
@@ -72,6 +74,10 @@ public class SpiderBTManager : MonoBehaviour
     {
         
         rootNode.Evaluate(this);
+        if (vision.playerDetected) //VISIONBOOL
+        {
+            Debug.Log("I SEE YOU!");
+        }
     }
 
     public void ResetPatrolState()
