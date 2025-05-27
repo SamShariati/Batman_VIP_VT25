@@ -1729,7 +1729,6 @@ GameObject:
   - component: {fileID: 849809716}
   - component: {fileID: 849809715}
   - component: {fileID: 849809717}
-  - component: {fileID: 849809718}
   m_Layer: 0
   m_Name: SpawnPoints
   m_TagString: Untagged
@@ -1788,7 +1787,7 @@ MonoBehaviour:
     type: 3}
   finalChest: {fileID: 0}
   spawners:
-  - {fileID: 849809718}
+  - {fileID: 0}
   keyPrefab: {fileID: 1477938177466484256, guid: ca8b5c3049653054aa3f12e77d86bdba,
     type: 3}
   keys:
@@ -1855,36 +1854,6 @@ MonoBehaviour:
     - {fileID: 1392075261}
   chests: []
   key: {fileID: 0}
---- !u!114 &849809718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849809714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec5f76c9427547479974e4a831bcfa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnChests: {fileID: 0}
-  stoneTestPrefab:
-  - {fileID: 1640357401124442, guid: 512245daca745f64693d790c6c69d575, type: 3}
-  - {fileID: 1506234916334588, guid: b1edb2076d83a7c4092e046f74006a60, type: 3}
-  - {fileID: 1814908095977450, guid: d22ed9070aa985a46b58ca203aca1549, type: 3}
-  - {fileID: 1312171912317838, guid: 8e509609580ad1d49ae17d8f28ece7bf, type: 3}
-  stoneCoverage: 0.5
-  minScale: 1.5
-  maxScale: 3
-  minStonesPerRoom: 4
-  maxStonesPerRoom: 6
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 67125248
-  baseCollisionRadius: 0.5
-  maxAttemptsPerStone: 5
-  raycastHeight: 2
-  raycastDepth: 10
 --- !u!1 &870609062
 GameObject:
   m_ObjectHideFlags: 0
