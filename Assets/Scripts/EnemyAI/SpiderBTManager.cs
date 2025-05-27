@@ -154,20 +154,29 @@ public class SpiderBTManager : MonoBehaviour
         Terrify terrify = new Terrify();
         InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
         InspectSound inspectSound = new InspectSound();
+        ScreamConditions screamConditions = new ScreamConditions();
+        Scream scream = new Scream();
 
-        //Branch 2
+        //Patrol Branch
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
         Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
         Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
 
-        //Branch 1
+        //Hear Branch
         Sequence terrifyState = new Sequence(new List<BTNode>() { terrifyConditions, terrify });
         Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSound });
         Selector alertState = new Selector(new List<BTNode>() { terrifyState, inspectSoundState });
         Sequence hearState = new Sequence(new List<BTNode>() { hearingConditions, alertState });
-        
+
+        //Vision Branch
+
+        Sequence screamState = new Sequence(new List<BTNode>() { screamConditions, scream });
+        Selector visionBehavior = new Selector(new List<BTNode>() { screamState });
+        Sequence visionState = new Sequence(new List<BTNode>() { visionBehavior });
 
 
-        rootNode = new Selector(new List<BTNode>() { hearState, patrolState });
+
+
+        rootNode = new Selector(new List<BTNode>() { visionState, hearState, patrolState });
     }
 }
