@@ -48,7 +48,9 @@ MonoBehaviour:
   spider: {fileID: 0}
   audioSource: {fileID: 7815278115788549261}
   fadeTime: 1
-  placeHolderSound: {fileID: 0}
+  keyPickUpSound: {fileID: 8300000, guid: 7501c59cab3d19d4a80be2e3c7973377, type: 3}
+  stonePickUpSound: {fileID: 8300000, guid: 11ad18b5b51af5a49a7db70792a6f835, type: 3}
+  unlockChestSound: {fileID: 8300000, guid: 1a369f0da55c38e448571813220d6bc1, type: 3}
   musicTracks:
   - {fileID: 8300000, guid: bda4f01cc4139544f97938f67a70a469, type: 3}
   - {fileID: 8300000, guid: 919874b0f0b2edf4bbf1b961f48c5e65, type: 3}

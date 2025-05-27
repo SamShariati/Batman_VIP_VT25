@@ -21,7 +21,10 @@ public class AudioClipManager : MonoBehaviour
 
     //LÄGG AUDIOCLIP VARIABLER HÄR
     [Header("AUDIOCLIPS")]
-    [SerializeField] public AudioClip placeHolderSound;
+    [SerializeField] public AudioClip keyPickUpSound;
+    [SerializeField] public AudioClip stonePickUpSound;
+    [SerializeField] public AudioClip unlockChestSound;
+
 
     [Tooltip("0: Patrol Music, 1: Alert Music")]
     public List<AudioClip> musicTracks = new List<AudioClip>(3);
@@ -66,9 +69,6 @@ public class AudioClipManager : MonoBehaviour
 
     private int GetMusicStateFromSpider()
     {
-        if (spider.terrifyStateActivated)
-            return 2; // Terrify music
-
         if (spider.alertStateActivated)
             return 1; // Alert music
 
