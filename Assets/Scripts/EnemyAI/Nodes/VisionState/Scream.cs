@@ -15,6 +15,7 @@ public class Scream : BTNode
         if (currentTimer > totalScreamTimer)
         {
             agent.screamStateActivated = false;
+            agent.currentVisionState = VisionState.ChaseState;
             currentTimer = 0f;
             return NodeState.SUCCESS;
         }

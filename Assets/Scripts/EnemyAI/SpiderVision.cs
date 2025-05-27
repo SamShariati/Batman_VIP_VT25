@@ -4,8 +4,8 @@ public class SpiderVision : MonoBehaviour
 {
     [Header("Vision Settings")]
     public float visionRange = 10f;
-    public float visionDistance = 15f;  // How far the vision extends
-    public float visionHeight = 0.5f;   // Height offset for vision cone (lower = closer to ground)
+    public float visionDistance = 15f;  
+    public float visionHeight = 0.5f;   
     public float visionAngle = 60f;
     public LayerMask obstacleLayerMask = -1;
     public LayerMask playerLayerMask = -1;
@@ -18,14 +18,13 @@ public class SpiderVision : MonoBehaviour
     [Header("Detection Status")]
     [SerializeField] private bool _playerDetected = false;
 
-    // Public read-only property for your AI Manager to check
     public bool playerIsVisible { get { return _playerDetected; } }
 
     private Transform player;
 
     void Start()
     {
-        // Find player by tag
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
             player = playerObj.transform;

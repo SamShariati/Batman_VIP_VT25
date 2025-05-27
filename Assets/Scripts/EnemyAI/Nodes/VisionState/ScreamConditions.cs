@@ -28,7 +28,7 @@ public class ScreamConditions : BTNode
 
     private bool CheckConditions(SpiderBTManager agent)
     {
-        if (agent.vision.playerIsVisible && CheckCooldown())
+        if (!agent.screamStateActivated && agent.currentVisionState == VisionState.ScreamState)
         {
             return true;
         }

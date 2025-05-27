@@ -6,12 +6,16 @@ public class VisionConditions : BTNode
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
-        if (agent.vision.playerIsVisible && !agent.playerSpotted)
+        if (agent.vision.playerIsVisible && !agent.visionSequenceActivated)
         {
-            agent.playerSpotted = true;
+            agent.ResetHearState();
+            agent.ResetPatrolState();
+
+            agent.currentVisionState = VisionState.ScreamState;
+            agent.visionSequenceActivated = true; //blir false efter runaway är färdig
             return NodeState.SUCCESS;
         }
-        else if (agent.playerSpotted)
+        else if (agent.visionSequenceActivated)
         {
             return NodeState.SUCCESS;
         }

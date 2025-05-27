@@ -5,6 +5,14 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+public enum VisionState
+{
+    ScreamState,
+    ChaseState,
+    FleeState,
+    Inactive
+}
+
 public class SpiderBTManager : MonoBehaviour
 {
     private BTNode rootNode;
@@ -54,8 +62,11 @@ public class SpiderBTManager : MonoBehaviour
     //VisionState
 
     [HideInInspector] public SpiderVision vision;
-    [HideInInspector] public bool playerSpotted = false;
-    [HideInInspector] public bool screamStateActivated = true;
+    [HideInInspector] public bool visionSequenceActivated = false;
+    [HideInInspector] public bool screamStateActivated = false;
+    [HideInInspector] public bool screamStateAllowed = true;
+    [HideInInspector] public bool chaseStateActivated = false;
+    [HideInInspector] public VisionState currentVisionState;
 
 
 
@@ -76,15 +87,12 @@ public class SpiderBTManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
         rootNode.Evaluate(this);
-        if (vision.playerIsVisible) //VISIONBOOL
-        {
-            Debug.Log("I SEE YOU!");
-        }
+        
     }
 
     public void ResetPatrolState()
@@ -94,6 +102,13 @@ public class SpiderBTManager : MonoBehaviour
         startSearchingRoom = true;
         currentlySearchingRoom = false;
         getNewPointList = true;
+    }
+
+    public void ResetHearState()
+    {
+        alertStateActivated = false;
+        terrifyStateActivated = false;
+        //
     }
 
     private void GetPatrolPositions()
@@ -154,8 +169,11 @@ public class SpiderBTManager : MonoBehaviour
         Terrify terrify = new Terrify();
         InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
         InspectSound inspectSound = new InspectSound();
+        VisionConditions visionConditions = new VisionConditions();
         ScreamConditions screamConditions = new ScreamConditions();
         Scream scream = new Scream();
+        ChaseConditions chaseConditions = new ChaseConditions();
+        ChasePlayer chasePlayer = new ChasePlayer();
 
         //Patrol Branch
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
@@ -171,8 +189,9 @@ public class SpiderBTManager : MonoBehaviour
         //Vision Branch
 
         Sequence screamState = new Sequence(new List<BTNode>() { screamConditions, scream });
-        Selector visionBehavior = new Selector(new List<BTNode>() { screamState });
-        Sequence visionState = new Sequence(new List<BTNode>() { visionBehavior });
+        Sequence chaseState = new Sequence(new List<BTNode>() { chaseConditions, chasePlayer });
+        Selector visionBehavior = new Selector(new List<BTNode>() { screamState, chaseState });
+        Sequence visionState = new Sequence(new List<BTNode>() { visionConditions, visionBehavior });
 
 
 

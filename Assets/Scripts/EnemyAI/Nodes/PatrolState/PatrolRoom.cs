@@ -4,7 +4,7 @@ public class PatrolRoom : BTNode
 {
     public bool runOnce = false;
     private Transform[] patrolPoints;
-    private bool chooseNewPatrolPoint = true;
+    //private bool chooseNewPatrolPoint = true;
     private Transform chosenPatrolPoint;
     private Transform previousPatrolPoint;
     private bool loopActivated = true;
