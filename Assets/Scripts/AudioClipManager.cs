@@ -1,16 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioClipManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //LÄGG AUDIOCLIP VARIABLER HÄR
+    [SerializeField] public AudioClip placeHolderSound;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        GameObject.DontDestroyOnLoad(this);
     }
 }
