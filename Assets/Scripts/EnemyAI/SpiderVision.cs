@@ -19,7 +19,7 @@ public class SpiderVision : MonoBehaviour
     [SerializeField] private bool _playerDetected = false;
 
     // Public read-only property for your AI Manager to check
-    public bool playerDetected { get { return _playerDetected; } }
+    public bool playerIsVisible { get { return _playerDetected; } }
 
     private Transform player;
 

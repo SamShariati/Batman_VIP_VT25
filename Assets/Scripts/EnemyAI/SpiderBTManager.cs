@@ -12,7 +12,7 @@ public class SpiderBTManager : MonoBehaviour
     public Transform patrolPointsPrefab;
     public Transform player;
     [HideInInspector] public SimpleMovement playerManager;
-    SpiderVision vision;
+    
 
     //Stats
     public float walkSpeed;
@@ -51,7 +51,14 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public float hearingSensitivity = 200f;
     [HideInInspector] public Vector3 calculatedPlayerPos;
 
-    
+    //VisionState
+
+    [HideInInspector] public SpiderVision vision;
+    [HideInInspector] public bool playerSpotted = false;
+    [HideInInspector] public bool screamStateActivated = true;
+
+
+
     void Awake()
     {
 
@@ -74,7 +81,7 @@ public class SpiderBTManager : MonoBehaviour
     {
         
         rootNode.Evaluate(this);
-        if (vision.playerDetected) //VISIONBOOL
+        if (vision.playerIsVisible) //VISIONBOOL
         {
             Debug.Log("I SEE YOU!");
         }
