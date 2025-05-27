@@ -4,13 +4,14 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class SpiderBTManager : MonoBehaviour
 {
     private BTNode rootNode;
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
     public Transform player;
-    [HideInInspector] public SimpleMovement playerManager;
+    //[HideInInspector] public SimpleMovement playerManager;
 
     //Stats
     public float walkSpeed;
@@ -43,10 +44,13 @@ public class SpiderBTManager : MonoBehaviour
 
     //AlertState
 
+    [HideInInspector] public bool terrifyReady = true;
+    [HideInInspector] public bool terrifyStateActivated = false;
     [HideInInspector] public bool alertStateActivated = false;
-    [HideInInspector] public float hearingSensitivity = 100f;
+    [HideInInspector] public float hearingSensitivity = 200f;
+    [HideInInspector] public Vector3 calculatedPlayerPos;
 
-
+    
     void Awake()
     {
 
@@ -55,11 +59,11 @@ public class SpiderBTManager : MonoBehaviour
         animator.SetBool("Agent_Idle", true);
         walkToNewRoomAllowed = true;
         GetPatrolPositions();
-
+       
         chosenRoom = roomPoints[0];
         ConstructBT();
-
-        playerManager = player.GetComponent<SimpleMovement>();
+        
+        //playerManager = player.GetComponent<SimpleMovement>();
 
     }
 
@@ -133,20 +137,24 @@ public class SpiderBTManager : MonoBehaviour
         PatrolRoomConditions patrolRoomConditions = new PatrolRoomConditions();
         PatrolRoom patrolRoom = new PatrolRoom();
         HearingConditions hearingConditions = new HearingConditions();
+        TerrifyConditions terrifyConditions = new TerrifyConditions();
+        Terrify terrify = new Terrify();
         InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
         InspectSound inspectSound = new InspectSound();
 
+        //Branch 2
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
         Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
-
-
-        //Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSoundConditions, inspectSound });
-        Sequence alertState = new Sequence(new List<BTNode>() { hearingConditions, inspectSound }); //ändra till selector
-
-
         Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
 
+        //Branch 1
+        Sequence terrifyState = new Sequence(new List<BTNode>() { terrifyConditions, terrify });
+        Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSound });
+        Selector alertState = new Selector(new List<BTNode>() { terrifyState, inspectSoundState });
+        Sequence hearState = new Sequence(new List<BTNode>() { hearingConditions, alertState });
+        
 
-        rootNode = new Selector(new List<BTNode>() { alertState, patrolState });
+
+        rootNode = new Selector(new List<BTNode>() { hearState, patrolState });
     }
 }

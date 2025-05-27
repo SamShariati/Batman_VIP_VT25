@@ -6,7 +6,7 @@ public class InspectSound : BTNode
     private float alertDistance;
     private float inspectDistance;
     private float hearingDistance;
-    private Vector3 calculatedPlayerPos;
+    //private Vector3 calculatedPlayerPos;
 
     private float totalIdleTime = 7f;
     private float currentIdleTime = 0f;
@@ -21,10 +21,10 @@ public class InspectSound : BTNode
         CalculatePlayerPosition(agent);
         
 
-        agent.navigation.SetDestination(calculatedPlayerPos);
+        agent.navigation.SetDestination(agent.calculatedPlayerPos);
         agent.navigation.isStopped = false;
 
-        inspectDistance = Vector3.Distance(agent.transform.position, calculatedPlayerPos);
+        inspectDistance = Vector3.Distance(agent.transform.position, agent.calculatedPlayerPos);
         if (inspectDistance < 6)
         {
             SetAnimation(agent,"Idle");
@@ -34,7 +34,7 @@ public class InspectSound : BTNode
         else
         {
             SetAnimation(agent, "Run");
-            agent.navigation.SetDestination(calculatedPlayerPos);
+            agent.navigation.SetDestination(agent.calculatedPlayerPos);
             agent.navigation.isStopped = false;
             startIdleTime = false;
             currentIdleTime = 0f;
@@ -62,7 +62,7 @@ public class InspectSound : BTNode
     {
         float distance = Vector3.Distance(agent.transform.position, agent.player.position);
 
-        if (distance < agent.hearingSensitivity && agent.playerManager.currentlyMakingSound)
+        if (distance < agent.hearingSensitivity && PlayerManager.Instance.isCurrentlyMakingSound)
         {
             agent.navigation.speed = agent.chaseSpeed;
         }
@@ -75,11 +75,11 @@ public class InspectSound : BTNode
     private void CalculatePlayerPosition(SpiderBTManager agent)
     {
         alertDistance = Vector3.Distance(agent.transform.position, agent.player.position);
-        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
+        hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
 
-        if (agent.playerManager.currentlyMakingSound && alertDistance < hearingDistance)
+        if (PlayerManager.Instance.isCurrentlyMakingSound && alertDistance < hearingDistance)
         {
-            calculatedPlayerPos = agent.player.position;
+            agent.calculatedPlayerPos = agent.player.position;
         }
     }
 

@@ -27,9 +27,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float footstepIntervalWalk = 0.5f;
     [SerializeField] private float footstepIntervalSprint = 0.3f;
     [SerializeField] private float footstepIntervalCrouch = 0.7f;
-    [SerializeField] private float soundRadiusWalk = 5f;
-    [SerializeField] private float soundRadiusSprint = 12f;
-    [SerializeField] private float soundRadiusCrouch = 2f;
+    public float soundRadiusWalk = 5f;
+    public float soundRadiusSprint = 12f;
+    public float soundRadiusCrouch = 2f;
 
     private Camera mainCamera;
     private CharacterController controller;
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         HandleFootsteps();
 
         // Reset movement noise level when not moving
-        if (velocity.magnitude < 0.1f || !groundedPlayer)
+        if (velocity.magnitude < 0.1f)
         {
             MovementNoiseLevel = 0f;
         }
@@ -211,6 +211,21 @@ public class PlayerController : MonoBehaviour
         {
             footstepTimer = 0;
         }
+
+        float currentNoiseLevel;
+        if (isSprinting)
+        {
+            currentNoiseLevel = soundRadiusSprint;
+        }
+        else if (isCrouching)
+        {
+            currentNoiseLevel = soundRadiusCrouch;
+        }
+        else
+        {
+            currentNoiseLevel = soundRadiusWalk;
+        }
+        MovementNoiseLevel = currentNoiseLevel;
     }
 
     private void PlayFootstepSound()
@@ -234,7 +249,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Update the current movement noise level
-        MovementNoiseLevel = currentNoiseLevel;
+        //MovementNoiseLevel = currentNoiseLevel;
     }
 
     // Public property that enemies can check to determine how loud the player's movement is

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MaterialManipulator : MonoBehaviour, ISoundListener
 {
-    MeshRenderer meshRenderer;
+    public MeshRenderer meshRenderer;
     Material material;
     public float maxTime = 1;
     public float maxRadius = 4;
@@ -13,8 +13,9 @@ public class MaterialManipulator : MonoBehaviour, ISoundListener
     public bool ready = true;
     void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        if(!meshRenderer)meshRenderer = GetComponent<MeshRenderer>();
         material = meshRenderer.material;
+        //material.
         wait = new WaitForSeconds(.3f);
         meshRenderer.enabled = false;
         //material.SetFloat("_Speed", speed);
