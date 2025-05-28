@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
             if (footstepTimer >= interval)
             {
                 footstepTimer = 0;
-                PlayFootstepSound();
+                //PlayFootstepSound();
             }
         }
         else

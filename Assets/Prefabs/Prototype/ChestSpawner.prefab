@@ -48,6 +48,7 @@ MonoBehaviour:
   addRoomParent: {fileID: 0}
   chestPrefab: {fileID: 8065520241439415400, guid: 5b8ac7969fcbee04481e3a4df627c29a,
     type: 3}
+  finalChest: {fileID: 0}
   spawners:
   - {fileID: 1073075270748164639}
   keyPrefab: {fileID: 1477938177466484256, guid: ca8b5c3049653054aa3f12e77d86bdba,
@@ -82,6 +83,8 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+  chests: []
+  key: {fileID: 0}
 --- !u!114 &1073075270748164639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec5f76c9427547479974e4a831bcfa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnChests: {fileID: 0}
   stoneTestPrefab:
-  - {fileID: 1788102605481785609, guid: 7d5fe2e588bbc9848b7c93374e52abbb, type: 3}
+  - {fileID: 1368783587043633911, guid: 18721ee13b848d949b6cca95cea823e3, type: 3}
   stoneCoverage: 0.465
+  minScale: 0.5
+  maxScale: 1.5
+  minStonesPerRoom: 4
+  maxStonesPerRoom: 6
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  baseCollisionRadius: 0.5
+  maxAttemptsPerStone: 5
+  raycastHeight: 2
+  raycastDepth: 10

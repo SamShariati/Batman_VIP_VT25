@@ -345,6 +345,7 @@ MonoBehaviour:
   - {fileID: 546294022}
   - {fileID: 1568979805}
   - {fileID: 726140573}
+  - {fileID: 1304420834}
   showDebug: 0
 --- !u!1 &288560393
 GameObject:
@@ -1738,7 +1739,7 @@ GameObject:
   - component: {fileID: 1304420837}
   - component: {fileID: 1304420836}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PanelPlayerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
