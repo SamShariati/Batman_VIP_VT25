@@ -8,11 +8,13 @@ public class VisionConditions : BTNode
     {
         if (agent.vision.playerIsVisible && !agent.visionSequenceActivated)
         {
+            agent.currentBehaviorState = BehaviorState.Chase;
+
             agent.ResetHearState();
             agent.ResetPatrolState();
 
             agent.currentVisionState = VisionState.ScreamState;
-            agent.visionSequenceActivated = true; //blir false efter runaway är färdig
+            agent.visionSequenceActivated = true;
             return NodeState.SUCCESS;
         }
         else if (agent.visionSequenceActivated)

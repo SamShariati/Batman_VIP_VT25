@@ -44,6 +44,7 @@ public class Flee : BTNode
         {
             agent.visionSequenceActivated = false;
             agent.currentVisionState = VisionState.Inactive;
+            agent.isAttackAllowed = true;
             startTimer = false;
             runOnce = false;
             timer = 0;  

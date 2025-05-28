@@ -11,7 +11,7 @@ public class TerrifyConditions : BTNode
     {
         if (CheckConditions(agent))
         {
-            agent.alertStateActivated = true;
+            
             agent.terrifyStateActivated = true;
             agent.calculatedPlayerPos = agent.player.position;
             return NodeState.SUCCESS;

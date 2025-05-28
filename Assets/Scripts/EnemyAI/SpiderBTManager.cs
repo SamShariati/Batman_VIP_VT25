@@ -15,6 +15,16 @@ public enum VisionState
 
 }
 
+public enum BehaviorState
+{
+
+    Attack,
+    Chase,
+    Hear,
+    Patrol
+
+}
+
 public class SpiderBTManager : MonoBehaviour
 {
     private BTNode rootNode;
@@ -73,6 +83,10 @@ public class SpiderBTManager : MonoBehaviour
     public Transform fleeRoomChosen;
 
     [HideInInspector] public bool isAttackAllowed = true;
+    [HideInInspector] public bool attackStateActivated = false;
+
+
+    [HideInInspector] public BehaviorState currentBehaviorState;
 
 
 
@@ -182,6 +196,8 @@ public class SpiderBTManager : MonoBehaviour
         ChasePlayer chasePlayer = new ChasePlayer();
         FleeConditions fleeConditions = new FleeConditions();
         Flee flee = new Flee();
+        AttackConditions attackConditions = new AttackConditions();
+        AttackPlayer attackPlayer = new AttackPlayer();
 
         //Patrol Branch
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
@@ -202,9 +218,11 @@ public class SpiderBTManager : MonoBehaviour
         Selector visionBehavior = new Selector(new List<BTNode>() { screamState, chaseState, fleeState });
         Sequence visionState = new Sequence(new List<BTNode>() { visionConditions, visionBehavior });
 
+        //Attack Branch
+
+        Sequence attackState = new Sequence(new List<BTNode>() { attackConditions, attackPlayer });
 
 
-
-        rootNode = new Selector(new List<BTNode>() { visionState, hearState, patrolState });
+        rootNode = new Selector(new List<BTNode>() { attackState, visionState, hearState, patrolState });
     }
 }

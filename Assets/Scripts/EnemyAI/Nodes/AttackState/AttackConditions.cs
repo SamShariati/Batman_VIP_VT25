@@ -1,18 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class FleeConditions : BTNode
+public class AttackConditions : BTNode
 {
-    
+    private float distance;
     public override NodeState Evaluate(SpiderBTManager agent)
     {
+        distance = Vector3.Distance(agent.transform.position, agent.player.position);
+
         if (CheckConditions(agent))
         {
-            agent.isAttackAllowed = false;
-            agent.fleeStateActivated = true;
+            agent.attackStateActivated = true;
             return NodeState.SUCCESS;
-
         }
-        else if (agent.fleeStateActivated)
+        else if (agent.attackStateActivated)
         {
             return NodeState.SUCCESS;
         }
@@ -20,12 +21,11 @@ public class FleeConditions : BTNode
         {
             return NodeState.FAILURE;
         }
-        
     }
 
     private bool CheckConditions(SpiderBTManager agent)
     {
-        if (!agent.fleeStateActivated && agent.currentVisionState == VisionState.FleeState)
+        if (distance < 6 && agent.isAttackAllowed && !agent.attackStateActivated)
         {
             return true;
         }
