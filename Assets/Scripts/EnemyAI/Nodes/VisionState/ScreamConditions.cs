@@ -10,16 +10,22 @@ public class ScreamConditions : BTNode
     {
         if (CheckConditions(agent))
         {
+
             agent.screamStateActivated = true;
             return NodeState.SUCCESS;
+
         }
         else if (agent.screamStateActivated)
         {
+
             return NodeState.SUCCESS;
+
         }
         else
         {
+
             return NodeState.FAILURE;
+
         }
     }
 

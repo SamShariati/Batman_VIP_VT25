@@ -22,7 +22,7 @@ public class ChasePlayer : BTNode
             agent.chaseStateActivated = false;
             agent.currentVisionState = VisionState.FleeState;
 
-            agent.visionSequenceActivated = false; //tillfälligt
+            //agent.visionSequenceActivated = false; //tillfälligt
 
             return NodeState.SUCCESS;
         }

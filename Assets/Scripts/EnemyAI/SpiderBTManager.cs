@@ -7,10 +7,12 @@ using UnityEngine.AI;
 
 public enum VisionState
 {
+
     ScreamState,
     ChaseState,
     FleeState,
     Inactive
+
 }
 
 public class SpiderBTManager : MonoBehaviour
@@ -66,7 +68,9 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public bool screamStateActivated = false;
     [HideInInspector] public bool screamStateAllowed = true;
     [HideInInspector] public bool chaseStateActivated = false;
+    [HideInInspector] public bool fleeStateActivated = false;
     [HideInInspector] public VisionState currentVisionState;
+    public Transform fleeRoomChosen;
 
 
 
@@ -174,6 +178,8 @@ public class SpiderBTManager : MonoBehaviour
         Scream scream = new Scream();
         ChaseConditions chaseConditions = new ChaseConditions();
         ChasePlayer chasePlayer = new ChasePlayer();
+        FleeConditions fleeConditions = new FleeConditions();
+        Flee flee = new Flee();
 
         //Patrol Branch
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
@@ -190,7 +196,8 @@ public class SpiderBTManager : MonoBehaviour
 
         Sequence screamState = new Sequence(new List<BTNode>() { screamConditions, scream });
         Sequence chaseState = new Sequence(new List<BTNode>() { chaseConditions, chasePlayer });
-        Selector visionBehavior = new Selector(new List<BTNode>() { screamState, chaseState });
+        Sequence fleeState = new Sequence(new List<BTNode>() { fleeConditions, flee });
+        Selector visionBehavior = new Selector(new List<BTNode>() { screamState, chaseState, fleeState });
         Sequence visionState = new Sequence(new List<BTNode>() { visionConditions, visionBehavior });
 
 
