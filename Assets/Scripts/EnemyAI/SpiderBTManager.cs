@@ -72,6 +72,8 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public VisionState currentVisionState;
     public Transform fleeRoomChosen;
 
+    [HideInInspector] public bool isAttackAllowed = true;
+
 
 
     void Awake()
