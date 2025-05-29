@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpiderVision : MonoBehaviour
 {
     [Header("Vision Settings")]
+    public Transform player;
     public float visionRange = 10f;
     public float visionDistance = 15f;  
     public float visionHeight = 0.5f;   
@@ -15,19 +16,21 @@ public class SpiderVision : MonoBehaviour
     public Color visionConeColor = Color.yellow;
     public Color detectionColor = Color.red;
 
+
+
     [Header("Detection Status")]
     [SerializeField] private bool _playerDetected = false;
 
     public bool playerIsVisible { get { return _playerDetected; } }
 
-    private Transform player;
+    //private Transform player;
 
     void Start()
     {
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
+        //GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        //if (playerObj != null)
+        //    player = playerObj.transform;
     }
 
     void Update()

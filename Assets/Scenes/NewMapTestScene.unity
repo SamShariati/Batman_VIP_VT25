@@ -8787,9 +8787,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597fee97d0ce8ab41be9fa80e2b2d186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1359607663}
   visionRange: 10
   visionDistance: 15
-  visionHeight: -3.51
+  visionHeight: -4.2
   visionAngle: 60
   obstacleLayerMask:
     serializedVersion: 2
