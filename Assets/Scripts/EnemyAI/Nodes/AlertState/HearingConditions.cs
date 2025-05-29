@@ -32,10 +32,10 @@ public class HearingConditions : BTNode
     private bool CheckPlayerSound(SpiderBTManager agent)
     {
         distance = Vector3.Distance(agent.transform.position, agent.player.position);
-        //hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
-        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
 
         //RIKTIGA SCEN
+
+        //hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
 
         //if (PlayerManager.Instance.isCurrentlyMakingSound && distance < hearingDistance)
         //{
@@ -47,6 +47,9 @@ public class HearingConditions : BTNode
         //}
 
         //SAMS SCEN
+
+        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
+
         if (agent.playerManager.currentlyMakingSound && distance < hearingDistance)
         {
             return true;
