@@ -8,7 +8,7 @@ public abstract class BTNode
     protected NodeState _nodeState;
     //protected Transform targetedPlayer;
 
-    public NodeState nodeState { get { return _nodeState; } }
+    //public NodeState nodeState { get { return _nodeState; } }
 
     public abstract NodeState Evaluate(SpiderBTManager agent);
 }

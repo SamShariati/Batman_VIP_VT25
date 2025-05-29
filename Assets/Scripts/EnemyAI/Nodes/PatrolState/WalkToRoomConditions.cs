@@ -19,6 +19,7 @@ public class WalkToRoomConditions : BTNode
 
         if (agent.walkToNewRoomAllowed)
         {
+            agent.currentBehaviorState = BehaviorState.Patrol;
             agent.walkToNewRoomAllowed = false;
             loopActivated = true;
             ChooseRoom(agent);
@@ -28,6 +29,7 @@ public class WalkToRoomConditions : BTNode
 
         else if (agent.currentlyWalkingToRoom)
         {
+            agent.currentBehaviorState = BehaviorState.Patrol;
             return NodeState.SUCCESS;
         }
 

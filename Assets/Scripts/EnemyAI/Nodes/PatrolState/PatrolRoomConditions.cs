@@ -12,10 +12,12 @@ public class PatrolRoomConditions : BTNode
         if (agent.startSearchingRoom)
         {
             agent.startSearchingRoom = false;
+            agent.currentBehaviorState = BehaviorState.Patrol;
             return NodeState.SUCCESS;
         }
         else if (agent.currentlySearchingRoom)
         {
+            agent.currentBehaviorState = BehaviorState.Patrol;
             return NodeState.SUCCESS;
         }
         else
