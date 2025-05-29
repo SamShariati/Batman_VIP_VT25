@@ -25,13 +25,20 @@ public class AudioClipManager : MonoBehaviour
     [SerializeField] public AudioClip stonePickUpSound;
     [SerializeField] public AudioClip unlockChestSound;
 
+    [Header("SPIDER SOUNDS")]
+    [SerializeField] public AudioClip spiderKillSound;
+    [SerializeField] public AudioClip spiderFleeSound;
+    [SerializeField] public AudioClip[] spiderScreamSounds;
+    [SerializeField] public AudioClip[] spiderScreechSounds;
+    [SerializeField] public AudioClip spiderWalkingSound;
+    [SerializeField] public AudioClip spiderRunningSound;
 
     [Tooltip("0: Patrol Music, 1: Alert Music")]
     public List<AudioClip> musicTracks = new List<AudioClip>(3);
 
     private void Awake()
     {
-        GameObject.DontDestroyOnLoad(this);
+        //GameObject.DontDestroyOnLoad(this);
     }
 
     private void Start()

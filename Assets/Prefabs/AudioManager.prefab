@@ -51,6 +51,16 @@ MonoBehaviour:
   keyPickUpSound: {fileID: 8300000, guid: 7501c59cab3d19d4a80be2e3c7973377, type: 3}
   stonePickUpSound: {fileID: 8300000, guid: 11ad18b5b51af5a49a7db70792a6f835, type: 3}
   unlockChestSound: {fileID: 8300000, guid: 1a369f0da55c38e448571813220d6bc1, type: 3}
+  spiderKillSound: {fileID: 8300000, guid: e9936052bc7e0be4ba9ffb49f89a5e7f, type: 3}
+  spiderFleeSound: {fileID: 8300000, guid: ac99a1b826fbeb5458f5684d4e7d83b2, type: 3}
+  spiderScreamSounds:
+  - {fileID: 8300000, guid: 9d61049a4087c7d4a861ef5cab29cf63, type: 3}
+  - {fileID: 8300000, guid: 9f4a7f0b846b5194094455ba46f88ef0, type: 3}
+  spiderScreechSounds:
+  - {fileID: 8300000, guid: 604ab808cfb43b3459e61709152fe03e, type: 3}
+  - {fileID: 8300000, guid: 79f1cf8a791f22c4389d9a331599354c, type: 3}
+  spiderWalkingSound: {fileID: 8300000, guid: 82e4c54cbb2dda74bbf1d1e876be4c75, type: 3}
+  spiderRunningSound: {fileID: 8300000, guid: 5702468bc4ff6144e8bd4f59b2f11b10, type: 3}
   musicTracks:
   - {fileID: 8300000, guid: bda4f01cc4139544f97938f67a70a469, type: 3}
   - {fileID: 8300000, guid: 919874b0f0b2edf4bbf1b961f48c5e65, type: 3}
