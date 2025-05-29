@@ -5739,7 +5739,7 @@ MonoBehaviour:
     sceneName: EndScreen
   spider: {fileID: 0}
   spiderLookAt: {fileID: 0}
-  ignore: 0
+  ignore: 1
   distToLoose: 5.5
   distToFace: 2.8
   turnTowardSpiderSpeed: 180
@@ -6117,7 +6117,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 67127671
+    m_Bits: 67128183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
