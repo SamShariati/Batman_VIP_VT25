@@ -97,6 +97,7 @@ public class MicrophoneData : ScriptableObject
             string s = File.ReadAllText("MicData.json");
             JsonUtility.FromJsonOverwrite(s, this);
         }
+        ValidateMic();
     }
 
 }
