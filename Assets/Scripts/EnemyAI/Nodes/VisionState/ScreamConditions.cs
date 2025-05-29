@@ -1,34 +1,40 @@
 using UnityEngine;
-using UnityEngine.InputSystem.Android;
 
-public class TerrifyConditions : BTNode
+public class ScreamConditions : BTNode
 {
 
     private float lastUpdatedTime = 0;
-    private float terrifyCooldown = 0;
+    private float screamCooldown = 0;
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
         if (CheckConditions(agent))
         {
-            
-            agent.terrifyStateActivated = true;
-            agent.calculatedPlayerPos = agent.player.position;
+
+            agent.screamStateActivated = true;
             return NodeState.SUCCESS;
+
         }
-        else if (agent.terrifyStateActivated)
+        else if (agent.screamStateActivated)
         {
+
             return NodeState.SUCCESS;
+
         }
         else
         {
+
             return NodeState.FAILURE;
+
         }
     }
+
+
+
+
     private bool CheckConditions(SpiderBTManager agent)
     {
-        if (!agent.terrifyStateActivated&& !agent.alertStateActivated
-            && CheckCooldown())
+        if (!agent.screamStateActivated && agent.currentVisionState == VisionState.ScreamState)
         {
             return true;
         }
@@ -37,12 +43,11 @@ public class TerrifyConditions : BTNode
             return false;
         }
     }
-
     private bool CheckCooldown()
     {
-        if (Time.time > lastUpdatedTime + terrifyCooldown)
+        if (Time.time > lastUpdatedTime + screamCooldown)
         {
-            terrifyCooldown = 10f;
+            screamCooldown = 15f;
             lastUpdatedTime = Time.time;
             return true;
         }

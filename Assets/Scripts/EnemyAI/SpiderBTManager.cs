@@ -5,13 +5,34 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+public enum VisionState
+{
+
+    ScreamState,
+    ChaseState,
+    FleeState,
+    Inactive
+
+}
+
+public enum BehaviorState
+{
+
+    Attack,
+    Chase,
+    Hear,
+    Patrol
+
+}
+
 public class SpiderBTManager : MonoBehaviour
 {
     private BTNode rootNode;
     public Transform roomPointsPrefab;
     public Transform patrolPointsPrefab;
     public Transform player;
-    //[HideInInspector] public SimpleMovement playerManager;
+    [HideInInspector] public SimpleMovement playerManager;
+    
 
     //Stats
     public float walkSpeed;
@@ -50,12 +71,31 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public float hearingSensitivity = 200f;
     [HideInInspector] public Vector3 calculatedPlayerPos;
 
-    
+    //VisionState
+
+    [HideInInspector] public SpiderVision vision;
+    [HideInInspector] public bool visionSequenceActivated = false;
+    [HideInInspector] public bool screamStateActivated = false;
+    [HideInInspector] public bool screamStateAllowed = true;
+    [HideInInspector] public bool chaseStateActivated = false;
+    [HideInInspector] public bool fleeStateActivated = false;
+    [HideInInspector] public VisionState currentVisionState;
+    public Transform fleeRoomChosen;
+
+    [HideInInspector] public bool isAttackAllowed = true;
+    [HideInInspector] public bool attackStateActivated = false;
+
+
+    [HideInInspector] public BehaviorState currentBehaviorState;
+
+
+
     void Awake()
     {
 
         navigation = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        vision = GetComponent<SpiderVision>();
         animator.SetBool("Agent_Idle", true);
         walkToNewRoomAllowed = true;
         GetPatrolPositions();
@@ -63,15 +103,16 @@ public class SpiderBTManager : MonoBehaviour
         chosenRoom = roomPoints[0];
         ConstructBT();
         
-        //playerManager = player.GetComponent<SimpleMovement>();
-
+        playerManager = player.GetComponent<SimpleMovement>();
+        
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
         rootNode.Evaluate(this);
+        
     }
 
     public void ResetPatrolState()
@@ -81,6 +122,13 @@ public class SpiderBTManager : MonoBehaviour
         startSearchingRoom = true;
         currentlySearchingRoom = false;
         getNewPointList = true;
+    }
+
+    public void ResetHearState()
+    {
+        alertStateActivated = false;
+        terrifyStateActivated = false;
+        //
     }
 
     private void GetPatrolPositions()
@@ -141,20 +189,40 @@ public class SpiderBTManager : MonoBehaviour
         Terrify terrify = new Terrify();
         InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
         InspectSound inspectSound = new InspectSound();
+        VisionConditions visionConditions = new VisionConditions();
+        ScreamConditions screamConditions = new ScreamConditions();
+        Scream scream = new Scream();
+        ChaseConditions chaseConditions = new ChaseConditions();
+        ChasePlayer chasePlayer = new ChasePlayer();
+        FleeConditions fleeConditions = new FleeConditions();
+        Flee flee = new Flee();
+        AttackConditions attackConditions = new AttackConditions();
+        AttackPlayer attackPlayer = new AttackPlayer();
 
-        //Branch 2
+        //Patrol Branch
         Sequence walkToRoomState = new Sequence(new List<BTNode>() { walkToRoomConditions, walkToRoom });
         Sequence patrolRoomState = new Sequence(new List<BTNode>() { patrolRoomConditions, patrolRoom });
         Selector patrolState = new Selector(new List<BTNode>() { walkToRoomState, patrolRoomState });
 
-        //Branch 1
+        //Hear Branch
         Sequence terrifyState = new Sequence(new List<BTNode>() { terrifyConditions, terrify });
         Sequence inspectSoundState = new Sequence(new List<BTNode>() { inspectSound });
         Selector alertState = new Selector(new List<BTNode>() { terrifyState, inspectSoundState });
         Sequence hearState = new Sequence(new List<BTNode>() { hearingConditions, alertState });
-        
+
+        //Vision Branch
+
+        Sequence screamState = new Sequence(new List<BTNode>() { screamConditions, scream });
+        Sequence chaseState = new Sequence(new List<BTNode>() { chaseConditions, chasePlayer });
+        Sequence fleeState = new Sequence(new List<BTNode>() { fleeConditions, flee });
+        Selector visionBehavior = new Selector(new List<BTNode>() { screamState, chaseState, fleeState });
+        Sequence visionState = new Sequence(new List<BTNode>() { visionConditions, visionBehavior });
+
+        //Attack Branch
+
+        Sequence attackState = new Sequence(new List<BTNode>() { attackConditions, attackPlayer });
 
 
-        rootNode = new Selector(new List<BTNode>() { hearState, patrolState });
+        rootNode = new Selector(new List<BTNode>() { attackState, visionState, hearState, patrolState });
     }
 }

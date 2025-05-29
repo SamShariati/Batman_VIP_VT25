@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.Android;
 public class InspectSoundConditions : BTNode
 {
     private float distance;
-    private float hearingSensitivity = 80f;
+    //private float hearingSensitivity = 80f;
     private float hearingDistance;
 
     public override NodeState Evaluate(SpiderBTManager agent)
