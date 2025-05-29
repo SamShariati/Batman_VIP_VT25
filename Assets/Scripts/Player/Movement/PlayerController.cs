@@ -22,9 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float cameraRotateSpeed = 3f;
 
     [Header("Audio")]
+    private AudioClipManager audioClipManager;
     [SerializeField] private float footstepIntervalWalk = 0.5f;
     [SerializeField] private float footstepIntervalSprint = 0.3f;
     [SerializeField] private float footstepIntervalCrouch = 0.7f;
+    private float lastFootstepInterval = 0f;
+
     public float soundRadiusWalk = 5f;
     public float soundRadiusSprint = 12f;
     public float soundRadiusCrouch = 2f;
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         currentSpeed = walkSpeed;
         targetHeight = standHeight;
+        audioClipManager = FindFirstObjectByType<AudioClipManager>();
     }
 
     private void OnEnable()
@@ -135,7 +139,6 @@ public class PlayerController : MonoBehaviour
             isSprinting = false;
         }
 
-        // Determine current movement speed
         if (isCrouching)
         {
             currentSpeed = crouchSpeed;
@@ -191,25 +194,47 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFootsteps()
     {
-        if (velocity.magnitude > 0.1f && groundedPlayer)
-        {
-            float interval = isSprinting ? footstepIntervalSprint :
-                           isCrouching ? footstepIntervalCrouch :
-                           footstepIntervalWalk;
+        bool isMoving = velocity.magnitude > 0.1f && groundedPlayer;
 
+        if (isMoving)
+        {
+            float currentInterval = isSprinting ? footstepIntervalSprint :
+                                   isCrouching ? footstepIntervalCrouch :
+                                   footstepIntervalWalk;
+
+            // Check if movement state changed and adjust timer proportionally
+            if (currentInterval != lastFootstepInterval && lastFootstepInterval > 0)
+            {
+                // Adjust timer proportionally to new interval
+                float progress = footstepTimer / lastFootstepInterval;
+                footstepTimer = progress * currentInterval;
+            }
+
+            lastFootstepInterval = currentInterval;
             footstepTimer += Time.deltaTime;
 
-            if (footstepTimer >= interval)
+            if (footstepTimer >= currentInterval)
             {
-                footstepTimer = 0;
-                //PlayFootstepSound();
+                footstepTimer -= currentInterval; // Subtract instead of reset to maintain rhythm
+                PlayFootstepSound();
             }
         }
         else
         {
-            footstepTimer = 0;
+            // Only reset timer after a longer pause to avoid constant resets
+            if (footstepTimer > 0)
+            {
+                footstepTimer += Time.deltaTime;
+                // Reset only after 0.2 seconds of not moving
+                if (footstepTimer > lastFootstepInterval + 0.2f)
+                {
+                    footstepTimer = 0;
+                    lastFootstepInterval = 0;
+                }
+            }
         }
 
+        // Update noise level
         float currentNoiseLevel;
         if (isSprinting)
         {
@@ -228,26 +253,10 @@ public class PlayerController : MonoBehaviour
 
     private void PlayFootstepSound()
     {
-        float currentNoiseLevel = 0f;
-
-        if (isSprinting)
+        if (audioClipManager?.stepSounds != null)
         {
-            AudioManager.instance.PlayWalkingSound();
-            currentNoiseLevel = soundRadiusSprint;
+            SFXManager.instance.PlayRandomSFXClip(audioClipManager.stepSounds, transform, 1f);
         }
-        else if (isCrouching)
-        {
-            AudioManager.instance.PlayWalkingSound();
-            currentNoiseLevel = soundRadiusCrouch;
-        }
-        else
-        {
-            AudioManager.instance.PlayWalkingSound();
-            currentNoiseLevel = soundRadiusWalk;
-        }
-
-        // Update the current movement noise level
-        //MovementNoiseLevel = currentNoiseLevel;
     }
 
     // Public property that enemies can check to determine how loud the player's movement is

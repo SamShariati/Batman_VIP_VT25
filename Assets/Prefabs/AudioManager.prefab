@@ -51,6 +51,10 @@ MonoBehaviour:
   keyPickUpSound: {fileID: 8300000, guid: 7501c59cab3d19d4a80be2e3c7973377, type: 3}
   stonePickUpSound: {fileID: 8300000, guid: 11ad18b5b51af5a49a7db70792a6f835, type: 3}
   unlockChestSound: {fileID: 8300000, guid: 1a369f0da55c38e448571813220d6bc1, type: 3}
+  stepSounds:
+  - {fileID: 8300000, guid: 9020d1a03ffe0c24cab2e5ca687070ce, type: 3}
+  - {fileID: 8300000, guid: 1dd81e75fc2388d4999ab67cdaa7c50e, type: 3}
+  - {fileID: 8300000, guid: 4654f8d64cbece446b6705a06748874b, type: 3}
   spiderKillSound: {fileID: 8300000, guid: e9936052bc7e0be4ba9ffb49f89a5e7f, type: 3}
   spiderFleeSound: {fileID: 8300000, guid: ac99a1b826fbeb5458f5684d4e7d83b2, type: 3}
   spiderScreamSounds:

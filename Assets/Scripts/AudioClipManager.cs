@@ -25,6 +25,9 @@ public class AudioClipManager : MonoBehaviour
     [SerializeField] public AudioClip stonePickUpSound;
     [SerializeField] public AudioClip unlockChestSound;
 
+    [Header("PLAYER SOUNDS")]
+    [SerializeField] public AudioClip[] stepSounds;
+
     [Header("SPIDER SOUNDS")]
     [SerializeField] public AudioClip spiderKillSound;
     [SerializeField] public AudioClip spiderFleeSound;
