@@ -11,12 +11,12 @@ public class Terrify : BTNode
     {
 
         //FIXA SÅ ATT SPINDELN ROTERAR SIG MOT LJUDET
-        if (agent.audioManager.spiderKillSound != null && soundReady)
-        {
-            soundReady = false;
-            //SFXManager.instance.PlaySFXClip(agent.audioManager.spiderKillSound, agent.transform, 1f);
-            SFXManager.instance.PlayRandomSFXClip(agent.audioManager.spiderScreechSounds, agent.transform, 1f);
-        }
+        //if (agent.audioManager.spiderKillSound != null && soundReady)
+        //{
+        //    soundReady = false;
+        //    //SFXManager.instance.PlaySFXClip(agent.audioManager.spiderKillSound, agent.transform, 1f);
+        //    SFXManager.instance.PlayRandomSFXClip(agent.audioManager.spiderScreechSounds, agent.transform, 1f);
+        //}
 
         SetSpiderSpeed(agent);
 

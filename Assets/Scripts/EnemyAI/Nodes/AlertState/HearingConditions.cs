@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HearingConditions : BTNode
 {
@@ -33,30 +34,33 @@ public class HearingConditions : BTNode
     {
         distance = Vector3.Distance(agent.transform.position, agent.player.position);
 
-        //RIKTIGA SCEN
-
-        //hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
-
-        //if (PlayerManager.Instance.isCurrentlyMakingSound && distance < hearingDistance)
-        //{
-        //    return true;
-        //}
-        //else
-        //{
-        //    return false;
-        //}
-
-        //SAMS SCEN
-
-        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
-
-        if (agent.playerManager.currentlyMakingSound && distance < hearingDistance)
+        if (SceneManager.GetActiveScene().name == "Spider AI Test Scene")
         {
-            return true;
+            hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
+
+            if (agent.playerManager.currentlyMakingSound && distance < hearingDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return false;
+            hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
+
+            if (PlayerManager.Instance.isCurrentlyMakingSound && distance < hearingDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
+        
     }
 }
