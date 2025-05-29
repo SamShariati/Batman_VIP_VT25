@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InspectSound : BTNode
 {
@@ -16,7 +17,7 @@ public class InspectSound : BTNode
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
-
+        agent.currentlyInspectingSound = true;
         SetSpiderSpeed(agent);
         CalculatePlayerPosition(agent);
         
@@ -50,6 +51,7 @@ public class InspectSound : BTNode
             idleTimerFinished = false;
             currentIdleTime = 0f;
             startIdleTime = false;
+            agent.currentlyInspectingSound = false;
             agent.alertStateActivated = false;
             return NodeState.SUCCESS;
         }
@@ -75,17 +77,24 @@ public class InspectSound : BTNode
     private void CalculatePlayerPosition(SpiderBTManager agent)
     {
         alertDistance = Vector3.Distance(agent.transform.position, agent.player.position);
-        //hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
-        hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
 
-        //if (PlayerManager.Instance.isCurrentlyMakingSound && alertDistance < hearingDistance)
-        //{
-        //    agent.calculatedPlayerPos = agent.player.position;
-        //}
-
-        if (agent.playerManager.currentlyMakingSound && alertDistance < hearingDistance)
+        if (SceneManager.GetActiveScene().name == "Spider AI Test Scene")
         {
-            agent.calculatedPlayerPos = agent.player.position;
+            hearingDistance = agent.hearingSensitivity * agent.playerManager.soundIntensity;
+
+            if (agent.playerManager.currentlyMakingSound && alertDistance < hearingDistance)
+            {
+                agent.calculatedPlayerPos = agent.player.position;
+            }
+        }
+        else
+        {
+            hearingDistance = agent.hearingSensitivity * PlayerManager.Instance.normalizedSoundLevel;
+
+            if (PlayerManager.Instance.isCurrentlyMakingSound && alertDistance < hearingDistance)
+            {
+                agent.calculatedPlayerPos = agent.player.position;
+            }
         }
 
     }

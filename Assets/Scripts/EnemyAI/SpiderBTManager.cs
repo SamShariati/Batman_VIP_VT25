@@ -32,6 +32,7 @@ public class SpiderBTManager : MonoBehaviour
     public Transform patrolPointsPrefab;
     public Transform player;
     [HideInInspector] public SimpleMovement playerManager;
+    [HideInInspector] public AudioClipManager audioManager;
     
 
     //Stats
@@ -67,6 +68,7 @@ public class SpiderBTManager : MonoBehaviour
 
     [HideInInspector] public bool terrifyReady = true;
     [HideInInspector] public bool terrifyStateActivated = false;
+    [HideInInspector] public bool currentlyInspectingSound = false;
     [HideInInspector] public bool alertStateActivated = false;
     [HideInInspector] public float hearingSensitivity = 200f;
     [HideInInspector] public Vector3 calculatedPlayerPos;
@@ -104,7 +106,8 @@ public class SpiderBTManager : MonoBehaviour
         ConstructBT();
         
         playerManager = player.GetComponent<SimpleMovement>();
-        
+        audioManager = FindFirstObjectByType<AudioClipManager>();
+
     }
 
 
@@ -128,6 +131,7 @@ public class SpiderBTManager : MonoBehaviour
     {
         alertStateActivated = false;
         terrifyStateActivated = false;
+        currentlyInspectingSound = false;
         //
     }
 

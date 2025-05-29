@@ -27,7 +27,7 @@ public class TerrifyConditions : BTNode
     }
     private bool CheckConditions(SpiderBTManager agent)
     {
-        if (!agent.terrifyStateActivated && CheckCooldown())
+        if (!agent.terrifyStateActivated && !agent.currentlyInspectingSound && CheckCooldown())
         {
             return true;
         }
