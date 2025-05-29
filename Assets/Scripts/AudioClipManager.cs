@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AudioClipManager : MonoBehaviour
 {
-
-    [Header("Spider Reference")]
+    [Header("Spider Reference (Optional)")]
     public SpiderBTManager spider;
 
     [Header("Audio Settings")]
@@ -15,9 +14,17 @@ public class AudioClipManager : MonoBehaviour
     [Range(0.5f, 5f)]
     public float fadeTime = 2f;
 
+    [Header("Music Settings")]
+    [Tooltip("Music to play when no spider is present (e.g., menu scenes)")]
+    public int defaultMusicTrack = 0;
+
+    [Tooltip("Whether to play music automatically when no spider is found")]
+    public bool playDefaultMusicWhenNoSpider = true;
+
     private int currentTrackIndex = 0;
     private int lastMusicState = 0;
     private bool isTransitioning = false;
+    private bool hasSpider = false;
 
     //LÄGG AUDIOCLIP VARIABLER HÄR
     [Header("AUDIOCLIPS")]
@@ -50,22 +57,38 @@ public class AudioClipManager : MonoBehaviour
         if (spider == null)
             spider = FindFirstObjectByType<SpiderBTManager>();
 
-        // Start with patrol music
-        if (musicTracks.Count > 0 && musicTracks[0] != null)
+        hasSpider = spider != null;
+
+        // Determine which music to start with
+        int startingTrack = hasSpider ? 0 : defaultMusicTrack;
+
+        // Start music if we have tracks available
+        if (musicTracks.Count > startingTrack && musicTracks[startingTrack] != null)
         {
-            audioSource.clip = musicTracks[0];
-            audioSource.loop = true;
-            audioSource.Play();
+            if (hasSpider || playDefaultMusicWhenNoSpider)
+            {
+                currentTrackIndex = startingTrack;
+                audioSource.clip = musicTracks[startingTrack];
+                audioSource.loop = true;
+                audioSource.Play();
+            }
         }
         else
         {
-            Debug.LogWarning("SpiderMusicManager: No patrol music assigned!");
+            Debug.LogWarning($"AudioClipManager: No music track at index {startingTrack} assigned!");
+        }
+
+        // Log spider status for debugging
+        if (!hasSpider)
+        {
+            Debug.Log("AudioClipManager: No spider found in scene. Using default music behavior.");
         }
     }
 
     private void Update()
     {
-        if (spider == null) return;
+        // Only do dynamic music switching if we have a spider
+        if (!hasSpider) return;
 
         // Check spider's state directly
         int currentMusicState = GetMusicStateFromSpider();
@@ -79,7 +102,8 @@ public class AudioClipManager : MonoBehaviour
 
     private int GetMusicStateFromSpider()
     {
-        if (spider.alertStateActivated)
+        // This should only be called when hasSpider is true
+        if (spider != null && spider.alertStateActivated)
             return 1; // Alert music
 
         return 0; // Patrol music (default)
@@ -94,6 +118,28 @@ public class AudioClipManager : MonoBehaviour
             !isTransitioning)
         {
             StartCoroutine(TransitionToMusic(newTrackIndex));
+        }
+    }
+
+    // Public method to manually change music (useful for menu/cutscenes)
+    public void SetMusicTrack(int trackIndex)
+    {
+        if (trackIndex >= 0 && trackIndex < musicTracks.Count && musicTracks[trackIndex] != null)
+        {
+            ChangeToTrack(trackIndex);
+        }
+        else
+        {
+            Debug.LogWarning($"AudioClipManager: Invalid track index {trackIndex}");
+        }
+    }
+
+    // Public method to stop music
+    public void StopMusic()
+    {
+        if (audioSource.isPlaying)
+        {
+            StartCoroutine(FadeOutAndStop());
         }
     }
 
@@ -142,4 +188,10 @@ public class AudioClipManager : MonoBehaviour
         audioSource.volume = 1;
     }
 
+    private IEnumerator FadeOutAndStop()
+    {
+        isTransitioning = true;
+        yield return StartCoroutine(FadeOut());
+        isTransitioning = false;
+    }
 }
