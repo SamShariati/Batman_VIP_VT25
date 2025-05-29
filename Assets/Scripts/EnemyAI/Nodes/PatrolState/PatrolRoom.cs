@@ -25,7 +25,7 @@ public class PatrolRoom : BTNode
         agent.currentlySearchingRoom = true;
         agent.navigation.speed = agent.walkSpeed;
 
-        agent.test = chosenPatrolPoint;
+        //agent.test = chosenPatrolPoint;
         if (agent.getNewPointList)
         {
             GetCorrectPointList(agent);

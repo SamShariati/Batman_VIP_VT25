@@ -41,7 +41,7 @@ public class SpiderBTManager : MonoBehaviour
     public float sprintSpeed;
 
     [HideInInspector] public NavMeshAgent navigation;
-    public Transform test;
+    //public Transform test;
     [HideInInspector] public Animator animator;
 
 
@@ -52,13 +52,13 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public List<Transform> R4patrolPoints;
     [HideInInspector] public List<Transform> R5patrolPoints;
 
-    [HideInInspector] public Transform[] testarray;
+    //[HideInInspector] public Transform[] testarray;
 
     //PatrolState
 
     [HideInInspector] public bool walkToNewRoomAllowed = true;
     [HideInInspector] public bool currentlyWalkingToRoom = false;
-    public Transform chosenRoom;
+    [HideInInspector] public Transform chosenRoom;
     [HideInInspector] public bool startSearchingRoom = true;
     [HideInInspector] public bool currentlySearchingRoom = false;
     [HideInInspector] public bool getNewPointList = true;
@@ -80,7 +80,7 @@ public class SpiderBTManager : MonoBehaviour
     [HideInInspector] public bool chaseStateActivated = false;
     [HideInInspector] public bool fleeStateActivated = false;
     [HideInInspector] public VisionState currentVisionState;
-    public Transform fleeRoomChosen;
+    [HideInInspector] public Transform fleeRoomChosen;
 
     [HideInInspector] public bool isAttackAllowed = true;
     [HideInInspector] public bool attackStateActivated = false;
