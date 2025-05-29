@@ -32,6 +32,7 @@ public class SpiderBTManager : MonoBehaviour
     public Transform patrolPointsPrefab;
     public Transform player;
     [HideInInspector] public SimpleMovement playerManager;
+    [HideInInspector] public AudioClipManager audioManager;
     
 
     //Stats
@@ -104,7 +105,8 @@ public class SpiderBTManager : MonoBehaviour
         ConstructBT();
         
         playerManager = player.GetComponent<SimpleMovement>();
-        
+        audioManager = FindFirstObjectByType<AudioClipManager>();
+
     }
 
 
