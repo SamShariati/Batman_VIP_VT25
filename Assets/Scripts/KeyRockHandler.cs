@@ -7,7 +7,7 @@ using UnityEngine;
  */
 public class KeyRockHandler : MonoBehaviour
 {
-    
+    private AudioClipManager audioClipManager;
     //this is perhaps too much responsibility breaking SRP
     public Animator animator;
     public Key keyPrefab;
@@ -21,6 +21,7 @@ public class KeyRockHandler : MonoBehaviour
 
     void Start()
     {
+        audioClipManager = FindFirstObjectByType<AudioClipManager>();
         if (animator)
         {
 
@@ -78,6 +79,10 @@ public class KeyRockHandler : MonoBehaviour
 
     public bool PickUpKey(string key)
     {
+        if (audioClipManager.keyPickUpSound != null)
+        {
+            SFXManager.instance.PlaySFXClip(audioClipManager.keyPickUpSound, transform, 1f);
+        }
         currentKey = key;
         return keys.Add(key);
     }
@@ -90,6 +95,10 @@ public class KeyRockHandler : MonoBehaviour
 
     public bool PickUpRock()
     {
+        if (audioClipManager.stonePickUpSound != null)
+        {
+            SFXManager.instance.PlaySFXClip(audioClipManager.stonePickUpSound, transform, 1f);
+        }
         animator.SetTrigger("PickUpRock");
         holdingRock = true;
         return true;

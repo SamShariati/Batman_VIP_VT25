@@ -45,7 +45,7 @@ public class AudioClipManager : MonoBehaviour
     {
         // Find spider if not assigned
         if (spider == null)
-            spider = FindObjectOfType<SpiderBTManager>();
+            spider = FindFirstObjectByType<SpiderBTManager>();
 
         // Start with patrol music
         if (musicTracks.Count > 0 && musicTracks[0] != null)
