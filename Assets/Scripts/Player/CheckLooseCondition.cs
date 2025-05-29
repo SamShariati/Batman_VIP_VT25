@@ -19,7 +19,7 @@ public class CheckLooseCondition : MonoBehaviour
 
     SpiderBTManager bt;
     NavMeshAgent agent;
-
+    bool dead = false;
 
 
     void Start()
@@ -38,6 +38,7 @@ public class CheckLooseCondition : MonoBehaviour
         if (spider) {
             bt = spider.GetComponent<SpiderBTManager>();
             agent = spider.GetComponent<NavMeshAgent>();
+            AttackPlayer.Attack += Die;
         }
         else
         {
@@ -58,30 +59,38 @@ public class CheckLooseCondition : MonoBehaviour
         if(ignore) return;
 
 
-        if (transform.position.InRangeOf(spider.position, distToLoose))
-        {
-            //Debug.LogError("YOU LOOSE!");
-            //do some stuff
-            playerController.enabled = false; //player is dead dont do inputs
-            ignore = true;
+        //if (transform.position.InRangeOf(spider.position, distToLoose))
+        //{
+        //    Die();
+        //}
+    }
 
-            //Debug.Log("Tell spider to standf still! at correct distance from player");
-            if(agent) agent.enabled = false;
-            bt.enabled = false;
+    public void Die()
+    {
+        if (dead) return;
+        //AttackPlayer.Attack -= Die;
+        dead = true;
+        //Debug.LogError("YOU LOOSE!");
+        //do some stuff
+        playerController.enabled = false; //player is dead dont do inputs
+        ignore = true;
 
-            //record "optimal offset"
-            Vector3 playerPos = transform.position;
-            Vector3 spiderPos = spider.position;
-            //compute spider to be distToLoose From player
-            //av n錱on anledning 鋜 spindel 6m upp i luften som default VARF种种諶?????!!!?
-            Vector3 spiderPos2 = Vector3.ProjectOnPlane(spiderPos - playerPos, Vector3.up).normalized * distToFace; //do alot of math because offset
-            spiderPos = new Vector3(playerPos.x + spiderPos2.x, spiderPos.y, playerPos.z + spiderPos2.z);
-            spider.position = spiderPos; //ouch the snapping
+        //Debug.Log("Tell spider to standf still! at correct distance from player");
+        if (agent) agent.enabled = false;
+        bt.enabled = false;
 
-            //tell the animator to play some clip?
+        //record "optimal offset"
+        Vector3 playerPos = transform.position;
+        Vector3 spiderPos = spider.position;
+        //compute spider to be distToLoose From player
+        //av n錱on anledning 鋜 spindel 6m upp i luften som default VARF种种諶?????!!!?
+        Vector3 spiderPos2 = Vector3.ProjectOnPlane(spiderPos - playerPos, Vector3.up).normalized * distToFace; //do alot of math because offset
+        spiderPos = new Vector3(playerPos.x + spiderPos2.x, spiderPos.y, playerPos.z + spiderPos2.z);
+        spider.position = spiderPos; //ouch the snapping
 
-            StartCoroutine(Look());
-        }
+        //tell the animator to play some clip?
+
+        StartCoroutine(Look());
     }
 
     IEnumerator Look()

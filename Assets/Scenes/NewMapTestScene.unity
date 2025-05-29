@@ -2146,6 +2146,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 662897817638022351, guid: 5d00b4ccdee86c04f85827ce07595963,
         type: 3}
+      propertyPath: ignore
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 662897817638022351, guid: 5d00b4ccdee86c04f85827ce07595963,
+        type: 3}
       propertyPath: spider
       value: 
       objectReference: {fileID: 1048504878}
