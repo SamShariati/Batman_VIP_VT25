@@ -6,17 +6,14 @@ public class Terrify : BTNode
     private float currentTimer = 0f;
     private float delayTime = 1f;
     private bool soundReady = true;
+    private float lastUpdatedTime = 0;
+    private float soundCooldown = 0;
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
 
         //FIXA SÅ ATT SPINDELN ROTERAR SIG MOT LJUDET
-        //if (agent.audioManager.spiderKillSound != null && soundReady)
-        //{
-        //    soundReady = false;
-        //    //SFXManager.instance.PlaySFXClip(agent.audioManager.spiderKillSound, agent.transform, 1f);
-        //    SFXManager.instance.PlayRandomSFXClip(agent.audioManager.spiderScreechSounds, agent.transform, 1f);
-        //}
+
 
         SetSpiderSpeed(agent);
 
@@ -29,6 +26,10 @@ public class Terrify : BTNode
         }
         else
         {
+            //if (SoundCooldown())
+            //{
+            //    SFXManager.instance.PlayRandomSFXClip(agent.audioManager.spiderScreechSounds, agent.transform, 1f);
+            //}
             SetAnimation(agent, "Terrify");
         }
 
@@ -43,11 +44,24 @@ public class Terrify : BTNode
             return NodeState.RUNNING;
         }
 
-
+        
 
 
     }
 
+    private bool SoundCooldown()
+    {
+        if (Time.time > lastUpdatedTime + soundCooldown)
+        {
+            soundCooldown = 5f;
+            lastUpdatedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     private void SetSpiderSpeed(SpiderBTManager agent)
     {

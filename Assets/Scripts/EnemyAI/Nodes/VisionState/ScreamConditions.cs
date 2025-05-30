@@ -10,7 +10,7 @@ public class ScreamConditions : BTNode
     {
         if (CheckConditions(agent))
         {
-
+            SFXManager.instance.PlayRandomSFXClip(agent.audioManager.spiderScreamSounds, agent.transform, 1f);
             agent.screamStateActivated = true;
             return NodeState.SUCCESS;
 

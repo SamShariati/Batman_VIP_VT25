@@ -9,6 +9,10 @@ public class Flee : BTNode
     private bool startTimer = false;
     private float timer = 0;
     private float totalIdleTime = 5;
+
+    private float lastUpdatedTime = 0;
+    private float soundCooldown = 0;
+
     public override NodeState Evaluate(SpiderBTManager agent)
     {
         
@@ -17,6 +21,8 @@ public class Flee : BTNode
             runOnce = true;
             agent.fleeRoomChosen = SelectFleeRoom(agent);
         }
+
+        
 
         agent.navigation.speed = agent.sprintSpeed;
         agent.navigation.isStopped = false;
@@ -32,6 +38,11 @@ public class Flee : BTNode
         }
         else
         {
+
+            if (SoundCooldown())
+            {
+                SFXManager.instance.PlaySFXClip(agent.audioManager.spiderRunningSound, agent.transform, 1f);
+            }
             SetAnimation(agent, "Sprint");
         }
 
@@ -57,6 +68,20 @@ public class Flee : BTNode
         }
 
 
+    }
+
+    private bool SoundCooldown()
+    {
+        if (Time.time > lastUpdatedTime + soundCooldown)
+        {
+            soundCooldown = 1.2f;
+            lastUpdatedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void SetAnimation(SpiderBTManager agent, string type)

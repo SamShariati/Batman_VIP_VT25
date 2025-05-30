@@ -11,6 +11,7 @@ public class AttackConditions : BTNode
         if (CheckConditions(agent))
         {
             agent.attackStateActivated = true;
+            SFXManager.instance.PlaySFXClip(agent.audioManager.spiderKillSound, agent.transform, 1f);
             return NodeState.SUCCESS;
         }
         else if (agent.attackStateActivated)

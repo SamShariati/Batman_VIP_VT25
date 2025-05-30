@@ -17,7 +17,8 @@ public class PatrolRoom : BTNode
     private bool startIdleTime = true;
     private int nrTimesSwappedPoint = 0;
 
-
+    private float lastUpdatedTime = 0;
+    private float soundCooldown = 0;
 
 
     public override NodeState Evaluate(SpiderBTManager agent)
@@ -48,6 +49,11 @@ public class PatrolRoom : BTNode
 
         if(distance > 6f)
         {
+            if (SoundCooldown())
+            {
+                SFXManager.instance.PlaySFXClip(agent.audioManager.spiderWalkingSound, agent.transform, 0.2f);
+            }
+
             SetAnimation(agent, "Walk");
             agent.navigation.SetDestination(chosenPatrolPoint.position);
             agent.navigation.isStopped = false;
@@ -75,7 +81,19 @@ public class PatrolRoom : BTNode
 
     }
 
-
+    private bool SoundCooldown()
+    {
+        if (Time.time > lastUpdatedTime + soundCooldown)
+        {
+            soundCooldown = 1.2f;
+            lastUpdatedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
     private void GetNewPatrolPoint(SpiderBTManager agent)
