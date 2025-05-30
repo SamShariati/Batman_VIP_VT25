@@ -4,7 +4,10 @@ using UnityEngine;
 public class ChasePlayer : BTNode
 {
     private float timer = 0;
-    private float totalChaseTime = 4f;
+    private float totalChaseTime = 5f;
+
+    private float lastUpdatedTime = 0;
+    private float soundCooldown = 0;
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
@@ -13,6 +16,11 @@ public class ChasePlayer : BTNode
         agent.navigation.speed = agent.chaseSpeed;
         agent.navigation.isStopped = false;
         agent.navigation.SetDestination(agent.player.position);
+
+        if (SoundCooldown())
+        {
+            SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderRunningSound, agent.transform, 1f);
+        }
 
         timer += Time.deltaTime;
 
@@ -29,6 +37,20 @@ public class ChasePlayer : BTNode
         else
         {
             return NodeState.RUNNING;
+        }
+    }
+
+    private bool SoundCooldown()
+    {
+        if (Time.time > lastUpdatedTime + soundCooldown)
+        {
+            soundCooldown = 1.2f;
+            lastUpdatedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

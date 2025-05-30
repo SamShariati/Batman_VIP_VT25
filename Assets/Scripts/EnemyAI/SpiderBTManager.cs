@@ -17,12 +17,10 @@ public enum VisionState
 
 public enum BehaviorState
 {
-
     Attack,
     Chase,
     Hear,
     Patrol
-
 }
 
 public class SpiderBTManager : MonoBehaviour
@@ -191,7 +189,7 @@ public class SpiderBTManager : MonoBehaviour
         HearingConditions hearingConditions = new HearingConditions();
         TerrifyConditions terrifyConditions = new TerrifyConditions();
         Terrify terrify = new Terrify();
-        InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
+        //InspectSoundConditions inspectSoundConditions = new InspectSoundConditions();
         InspectSound inspectSound = new InspectSound();
         VisionConditions visionConditions = new VisionConditions();
         ScreamConditions screamConditions = new ScreamConditions();

@@ -4,7 +4,8 @@ public class AttackPlayer : BTNode
 {
     private float timer = 0;
     private float totalIdleTime = 1;
-    static public System.Action Attack; 
+    static public System.Action Attack;
+    private bool runOnce = false;
 
     public override NodeState Evaluate(SpiderBTManager agent)
     {
@@ -14,11 +15,17 @@ public class AttackPlayer : BTNode
 
         timer += Time.deltaTime;
 
+        if (!runOnce)
+        {
+            Attack?.Invoke();
+
+        }
+
         if (timer > totalIdleTime)
         {
 
             //LÄGG TILL LOSING-CONDITION / SCENBYTE HÄR JACK!
-            Attack?.Invoke();
+            //Attack?.Invoke();
 
 
             return NodeState.SUCCESS;

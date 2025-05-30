@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class WalkToRoom : BTNode
 {
-    private float distance;   
+    private float distance;
+
+    private float lastUpdatedTime = 0;
+    private float soundCooldown = 0;
+
     public override NodeState Evaluate(SpiderBTManager agent)
     {
         SetAnimation(agent);
@@ -12,6 +16,12 @@ public class WalkToRoom : BTNode
         agent.currentlyWalkingToRoom = true;
 
         distance = Vector3.Distance(agent.transform.position, agent.chosenRoom.position);
+
+        if (SoundCooldown())
+        {
+            SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderRunningSound, agent.transform, 1f);
+        }
+
 
         if (distance < 6f)
         {
@@ -25,6 +35,20 @@ public class WalkToRoom : BTNode
         else
         {
             return NodeState.RUNNING;
+        }
+    }
+
+    private bool SoundCooldown()
+    {
+        if (Time.time > lastUpdatedTime + soundCooldown)
+        {
+            soundCooldown = 1.2f;
+            lastUpdatedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

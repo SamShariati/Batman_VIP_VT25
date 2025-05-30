@@ -15,6 +15,9 @@ public class InspectSound : BTNode
     private bool startIdleTime = false;
     private bool idleTimerFinished = false;
 
+    private float lastUpdatedTime = 0;
+    private float soundCooldown = 0;
+
     public override NodeState Evaluate(SpiderBTManager agent)
     {
         agent.currentlyInspectingSound = true;
@@ -34,6 +37,12 @@ public class InspectSound : BTNode
         }
         else
         {
+
+            if (SoundCooldown())
+            {
+                SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderRunningSound, agent.transform, 1f);
+            }
+
             SetAnimation(agent, "Run");
             agent.navigation.SetDestination(agent.calculatedPlayerPos);
             agent.navigation.isStopped = false;
@@ -48,6 +57,7 @@ public class InspectSound : BTNode
 
         if (idleTimerFinished)
         {
+            SFXManager.instance.PlaySFXClip(agent.audioManager.spiderScreechSounds[1], agent.transform, 1f);
             idleTimerFinished = false;
             currentIdleTime = 0f;
             startIdleTime = false;
@@ -58,6 +68,21 @@ public class InspectSound : BTNode
 
         return NodeState.RUNNING;
 
+    }
+
+
+    private bool SoundCooldown()
+    {
+        if (Time.time > lastUpdatedTime + soundCooldown)
+        {
+            soundCooldown = 1.2f;
+            lastUpdatedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void SetSpiderSpeed(SpiderBTManager agent)

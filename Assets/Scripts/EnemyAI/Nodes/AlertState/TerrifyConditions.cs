@@ -11,7 +11,7 @@ public class TerrifyConditions : BTNode
     {
         if (CheckConditions(agent))
         {
-            
+            SFXManager.instance.PlaySFXClip(agent.audioManager.spiderScreechSounds[0], agent.transform, 1f);
             agent.terrifyStateActivated = true;
             agent.calculatedPlayerPos = agent.player.position;
             return NodeState.SUCCESS;
