@@ -103,7 +103,9 @@ public class AudioClipManager : MonoBehaviour
     private int GetMusicStateFromSpider()
     {
         // This should only be called when hasSpider is true
-        if (spider != null && spider.alertStateActivated)
+        if (spider != null && spider.currentBehaviorState == BehaviorState.Chase)
+            return 2;
+        if (spider != null && spider.currentBehaviorState == BehaviorState.Hear)
             return 1; // Alert music
 
         return 0; // Patrol music (default)
@@ -162,7 +164,7 @@ public class AudioClipManager : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        float startVolume = audioSource.volume;
+        float startVolume = audioSource.volume / 2;
 
         for (float t = 0; t < fadeTime; t += Time.deltaTime)
         {
@@ -181,11 +183,11 @@ public class AudioClipManager : MonoBehaviour
 
         for (float t = 0; t < fadeTime; t += Time.deltaTime)
         {
-            audioSource.volume = Mathf.Lerp(0, 1, t / fadeTime);
+            audioSource.volume = Mathf.Lerp(0, 0.5f, t / fadeTime);
             yield return null;
         }
 
-        audioSource.volume = 1;
+        audioSource.volume = 0.5f;
     }
 
     private IEnumerator FadeOutAndStop()

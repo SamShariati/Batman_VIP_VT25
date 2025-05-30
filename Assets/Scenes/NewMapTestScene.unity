@@ -10949,6 +10949,16 @@ PrefabInstance:
       propertyPath: spider
       value: 
       objectReference: {fileID: 1048504880}
+    - target: {fileID: 6257966568869247837, guid: 6ad21a181f44b30449c8b5f2b81ea6cf,
+        type: 3}
+      propertyPath: musicTracks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257966568869247837, guid: 6ad21a181f44b30449c8b5f2b81ea6cf,
+        type: 3}
+      propertyPath: 'musicTracks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: fc9bdddb97943f24ca20ec7adef0fa62, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
