@@ -19,7 +19,7 @@ public class WalkToRoom : BTNode
 
         if (SoundCooldown())
         {
-            SFXManager.instance.PlaySFXClip(agent.audioManager.spiderRunningSound, agent.transform, 1f);
+            SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderRunningSound, agent.transform, 1f);
         }
 
 

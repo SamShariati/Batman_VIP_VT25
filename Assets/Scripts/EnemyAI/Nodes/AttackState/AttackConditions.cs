@@ -4,6 +4,8 @@ using UnityEngine;
 public class AttackConditions : BTNode
 {
     private float distance;
+
+    
     public override NodeState Evaluate(SpiderBTManager agent)
     {
         distance = Vector3.Distance(agent.transform.position, agent.player.position);
@@ -11,7 +13,7 @@ public class AttackConditions : BTNode
         if (CheckConditions(agent))
         {
             agent.attackStateActivated = true;
-            SFXManager.instance.PlaySFXClip(agent.audioManager.spiderKillSound, agent.transform, 1f);
+            SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderKillSound, agent.transform, 1f);
             return NodeState.SUCCESS;
         }
         else if (agent.attackStateActivated)

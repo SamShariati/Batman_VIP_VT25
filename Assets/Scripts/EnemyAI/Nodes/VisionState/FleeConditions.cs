@@ -9,7 +9,7 @@ public class FleeConditions : BTNode
         {
 
             agent.currentBehaviorState = BehaviorState.Patrol;
-            SFXManager.instance.PlaySFXClip(agent.audioManager.spiderFleeSound, agent.transform, 1f);
+            SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderFleeSound, agent.transform, 1f);
             agent.isAttackAllowed = false;
             agent.fleeStateActivated = true;
             return NodeState.SUCCESS;

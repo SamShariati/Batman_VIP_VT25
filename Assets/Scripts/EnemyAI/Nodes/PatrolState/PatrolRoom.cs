@@ -51,7 +51,7 @@ public class PatrolRoom : BTNode
         {
             if (SoundCooldown())
             {
-                SFXManager.instance.PlaySFXClip(agent.audioManager.spiderWalkingSound, agent.transform, 0.2f);
+                SpiderSFXManager.instance.PlaySFXClip(agent.audioManager.spiderWalkingSound, agent.transform, 0.2f);
             }
 
             SetAnimation(agent, "Walk");
