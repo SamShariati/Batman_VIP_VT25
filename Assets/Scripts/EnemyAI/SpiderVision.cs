@@ -4,10 +4,10 @@ public class SpiderVision : MonoBehaviour
 {
     [Header("Vision Settings")]
     public Transform player;
-    public float visionRange = 10f;
-    public float visionDistance = 15f;  
-    public float visionHeight = 0.5f;   
-    public float visionAngle = 60f;
+    public float visionRange;
+    public float visionDistance;  
+    public float visionHeight;   
+    public float visionAngle;
     public LayerMask obstacleLayerMask = -1;
     public LayerMask playerLayerMask = -1;
 
