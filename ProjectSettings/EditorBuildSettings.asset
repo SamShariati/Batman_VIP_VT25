@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NewMapTestScene.unity
     guid: 9e3488573a79a6649a1bc2dbbe12c9ab
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: cb769a5f9626b3a4981e22472853b7f2
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
