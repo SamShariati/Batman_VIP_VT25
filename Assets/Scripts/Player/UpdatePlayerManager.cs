@@ -21,7 +21,7 @@ public class UpdatePlayerManager : MonoBehaviour
         if (eco.DirectLoudnessNormalized > eco.LoudnessThreshold)
         {
             afterTalkTime = Time.time;
-            level = Mathf.Max(level, eco.DirectLoudnessNormalized);
+            level = 0.25f * Mathf.Max(level, eco.DirectLoudnessNormalized);
             talking = true;
         }
         if(afterTalkTime + afterTalkTimer < Time.time)
