@@ -6433,9 +6433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'BatManDuo
-
-'
+  m_text: BatMan SOLO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2964c05a4fcb18341bf38b3587497207, type: 2}
   m_sharedMaterial: {fileID: 9164569943266383003, guid: 2964c05a4fcb18341bf38b3587497207,
